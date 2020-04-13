@@ -1,0 +1,96 @@
+{% extends 'layout.html'%}
+{%block head%}
+{%include 'picheadpage.html'%}
+{%endblock%}
+{%block content%}
+<div class="card border-0 shadow mb-4"><!--กล่องหลัก-->
+    <div class="card-header" style="background-color:#3CB371"><!--ส่วนหัวกล่องหลัก-->
+        <div class="d-flex bd-highlight  ">
+            <a style="color:green" class="card-link" href="{%url 'article'%}">
+                <div style="color:white" class="p-2 bd-highlight">บทความอิสลาม</div>
+            </a>
+
+
+            <div class="ml-auto p-1 bd-highlight">
+                <div class="d-flex flex-row-reverse bd-highlight">
+
+                    <div class="dropdown mr-0 ">
+                        <form method="post" action="{% url 'article' %}">
+                            {% csrf_token %}
+                            <select name="sortarticle">
+                                <option selected="selected" disabled>เรียงตาม--</option>
+                                <option value="date">ล่าสุด</option>
+                                <option value="pop">ยอดนิยม</option>
+                                <option value="namear">ชื่อบทความ</option>
+                            </select>
+                            <select name="sortcate">
+                                <option selected="selected" disabled>หมวดหมู่บทความ--</option>
+                                <option value="all">ทั้งหมด</option>
+                                {%for category in links %}
+                                <option value="{{category.get_url}}">{{category.name}}</option>
+                                {%endfor%}
+                            </select>
+                            <input type="submit" value="ตกลง" class="btn btn-secondary">
+                        </form>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="card-body"><!--ส่วนตัวกล่องหลัก-->
+
+        <br>
+
+
+        <div class="container">
+            {% if not articles %}
+            <div class="alert alert-danger"><p class="text-center">ยังไม่มีบทความในหมวดหมู่นี้ ทางเว็บไซต์กำลังรวบรวมข้อมูลเพื่อพี่น้องชาวปัญญาชนอิสลามต่อไป อินชาอัลลอฮ์</p></div>
+            {% else %}
+            {% for article in articles %}
+            <div class="card" style="border-top: 3px solid green ; padding:20px">
+                <a style="color:#006400" class="card-link" href="{{article.get_url}}"><h5 style="color:green">
+                    {{article.name}}</h5></a>
+                <div class="modal-footer">
+
+                    <p class="card-text"><small class="text-muted">อัพเดทล่าสุด : {{article.updated}}</small></p>
+                    <p class="card-text"><small class="text-muted"><kbd>ถูกอ่าน : {{article.view}}
+                        ครั้ง</kbd></small>
+                    </p>
+                    <a href="{%url 'addtoreadlist' article.id %}">
+                        <button type="button" class="btn btn-success">readlist <span
+                                class="badge badge-light">+</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+            {% endfor%}
+            {%endif%}
+        </div>
+
+
+    </div>
+    <br>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">ก่อนหน้า</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active" aria-current="page">
+                <span class="page-link">2<span class="sr-only">(current)</span></span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">ถัดไป</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{%endblock%}

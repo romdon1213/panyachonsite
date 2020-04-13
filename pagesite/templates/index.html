@@ -1,0 +1,96 @@
+{% extends 'layout.html'%}
+
+{% block head %}
+{%include 'picheadhome.html'%}
+{%endblock%}
+
+{% load static %}
+{%block content%}
+<div class="card border-0 shadow mb-4"><!--กล่องหลัก-->
+    <div class="card-header" style="background-color:#3CB371"><!--ส่วนหัวกล่องหลัก-->
+        <div class="d-flex bd-highlight  ">
+            <a style="color:green" class="card-link" href="{%url 'article'%}">
+                <div style="color:white" class="p-2 bd-highlight">บทความนิยม</div>
+            </a>
+            <div class="ml-auto p-1 bd-highlight">
+
+                <div class="dropdown mr-0">
+                    <button style="background-color:#3CB371" type="button" class="btn btn-secondary dropdown-toggle"
+                            id="dropdownMenuOffset"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0,0">
+                        หมวดหมู่บทความ
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                        <a class="dropdown-item" href="{%url 'index'%}">- ทั้งหมด </a>
+                        {%for category in links %}
+                        <a class="dropdown-item" href="{{category.get_url}}">- {{category.name}}</a>
+
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body"><!--ส่วนตัวกล่องหลัก-->
+
+        {% for article in r_article %}
+        <div class="card shadow mb-1 " style="border-top: 3px solid green ; padding:20px">
+            <div class="row no-gutters">
+                <div class="col-sm-4">
+                    <a href="{{article.get_url}}">
+                    <img src="{{article.image.url}}" class="img-fluid img-thumbnail" alt="{{article.name}}">
+                </a>
+                </div>
+                <div class="col-sm-8">
+                    <div class="container">
+                        <a style="color:#006400" class="card-link" href="{{article.get_url}}"><h5 class="card-title">
+                            {{article.name}}</h5></a>
+                        <p class="card-text">{{article.description|safe|truncatewords:"4"}}<span><a
+                                href="{{article.get_url}}">อ่านเพิ่มเติม</a></span></p>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <p class="card-text"><small class="text-muted">อัพเดทล่าสุด : {{article.updated}}</small> <span><kbd>ถูกอ่าน : {{article.view}} ครั้ง</kbd></span></p>
+
+                        <a href="{%url 'addtoreadlist' article.id %}"><button type="button" class="btn btn-success">readlist <span class="badge badge-light">+</span>
+                        </button></a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        {% endfor%}
+
+
+    </div>
+    <div class="ml-auto p-1 bd-highlight" style="border-bottom: 3px solid green ; padding:20px">
+        <a style="color:green" class="card-link" href="{%url 'article'%}"><h6>บทความอื่น ๆ</h6></a>
+    </div>
+</div>
+
+<div class="card border-0 shadow mb-4">
+    <div class="card-header" style="background-color:#3CB371">
+        <h5>มัสอะละห์ (ถาม-ตอบปัญหาศาสนา)</h5>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+
+<div class="card border-0 shadow mb-4">
+    <div class="card-header" style="background-color:#3CB371">
+        <h5>มัสอะละห์ (ถาม-ตอบปัญหาศาสนา)</h5>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+{%endblock%}
+
+

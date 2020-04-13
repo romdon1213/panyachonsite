@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>PANYACHONISLAM-ปัญญาชนอิสลาม</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@200;300;400&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.4/examples/carousel/carousel.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@200&display=swap" rel="stylesheet">
+</head>
+<body style="background-color:#E0FFFF ; font-family: 'Sarabun', sans-serif;">
+<!-- แถบเมนูบนสุด -->
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top " style="background-color:#2E8B57">
+        <a class="navbar-brand" href="{%url 'index'%}">PANYACHON ISLAM</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'signup' %}">สมัครสมาชิก</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ลงชื่อเข้าใช้</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'readlistdetail' %}">
+                        <button type="button" class="btn btn-success ">
+                            readlist <span class="badge badge-light">
+                            {% if itemcount > 0 %}
+                            {{itemcount}}
+                            {% else %}
+                                0
+                            {% endif %}
+
+                        </span>
+
+                        </button>
+                    </a>
+                </li>
+
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <input class="form-control mr-sm-2 border-0 shadow" type="text" placeholder="ค้นหาข้อมูล"
+                       aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ค้นหา</button>
+            </form>
+        </div>
+    </nav>
+</header>
+<!-- รูปภาพส่วนหัว -->
+{% block head %}
+{%endblock%}
+<!-- เมนูเว็บเพจ-->
+<main>
+    <div class="nav nav-expand-md justify-content-center border-0 shadow mb-4" style="background-color:#3CB371">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a href="{% url 'index'%}">
+                <button type="button" class="btn btn-secondary" style="background-color:#2E8B57">
+                    หน้าหลัก
+                </button>
+            </a>
+            <button type="button" class="btn btn-secondary" style="background-color:#2E8B57">ปัญหาศาสนา</button>
+            <a href="{% url 'article'%}">
+                <button type="button" class="btn btn-secondary" style="background-color:#2E8B57">
+                    บทความอิสลาม
+                </button>
+            </a>
+
+            <button type="button" class="btn btn-secondary" style="background-color:#2E8B57">เครื่องมือศาสนา</button>
+            <a href="{% url 'blog'%}">
+                <button type="button" class="btn btn-secondary" style="background-color:#2E8B57">บอร์ดสนทนา >></button>
+            </a>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                {%block content%}
+                {%endblock%}
+            </div>
+            {%include 'block_ads.html'%}
+        </div>
+    </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="container-fluid">
+    <div class="footer-main bg-dark py-5 small">
+        <div class="container">
+            <a href="/about">Start Bootstrap</a>
+            is a project created and maintained by
+            <a href="http://davidmiller.io">David Miller</a>.
+            <br>
+            Themes, templates, and snippets licensed
+            <a href="https://opensource.org/licenses/MIT">MIT</a>, Start Bootstrap website
+            <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.
+            <br>
+            Based on
+            <a href="https://getbootstrap.com">Bootstrap</a>.
+        </div>
+    </div>
+</footer>
+</body>
+</html>

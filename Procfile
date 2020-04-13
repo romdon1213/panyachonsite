@@ -1,0 +1,1 @@
+web: gunicorn payachon.wsgi --log-file -

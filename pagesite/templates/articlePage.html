@@ -1,0 +1,34 @@
+{% extends 'layout.html'%}
+{%block head%}
+{%include 'picheadpage.html'%}
+{%endblock%}
+{%block content%}
+<div class="container">
+    <div class="card shadow mb-2" style="border-top: 3px solid green ; padding:20px">
+
+        <div class="card-body text-center">
+
+            <h5>{{article.name}}</h5>
+            <br>
+
+            <img src="{{article.image.url}}" class="img-thumbnail" width="500 px" height="500px">
+
+        </div>
+         <div class="modal-footer">
+
+            <p class="card-text"><small class="text-muted">อัพเดทล่าสุด : {{article.updated}}</small></p>
+            <p class="card-text"><small class="text-muted"><kbd>ถูกอ่าน : {{article.view}} ครั้ง</kbd></small></p>
+            <a href="{%url 'addtoreadlist' article.id %}"><button type="button" class="btn btn-success">readlist <span class="badge badge-light">+</span>
+            </button></a>
+        </div>
+        <div class="card-body">{{article.description|safe}}</div>
+        <div class="modal-footer">
+            <div class="ml-auto p-1 bd-highlight" style="border-bottom: 3px solid green ; padding:20px">
+                <a style="color:green" class="card-link" href="{%url 'article'%}"><h6>บทความอื่น ๆ</h6></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{%endblock%}
