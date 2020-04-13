@@ -8,7 +8,7 @@ class SignupForm(UserCreationForm):
     first_name=forms.CharField(max_length=100,help_text='ชื่อที่ต้องการให้แสดงเป็นชื่อโปรไฟล์',required=True)
     last_name = forms.CharField(max_length=100, help_text='ชื่อต่อท้ายที่ต้องการให้แสดงเป็นชื่อโปรไฟล์', required=True)
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
-    'class': 'input-text with-border', 'placeholder': '8ตัวขึ้นไป/ห้ามตัวเลขล้วน/ไม่คล้ายกับชื่อส่วนตัว'}))
+    'class': 'input-text with-border', 'placeholder': '8 ตัวขึ้นไป,ห้ามใช้ตัวเลขล้วน,ห้ามเหมือนกับชื่อส่วนตัว','description':'adsgsdsadss'}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'input-text with-border', 'placeholder': 'กรอสรหัสซ้ำอีกครั้งหนึ่ง'}))
     class Meta :

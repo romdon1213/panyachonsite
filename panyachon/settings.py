@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'h(66*ceg9lp=@9owan)jk!8kfr6h_#ln%c2hq@=y+-26&#)yn='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']#https://floating-anchorage-03204.herokuapp.com/
+ALLOWED_HOSTS = []
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
@@ -84,15 +83,14 @@ WSGI_APPLICATION = 'panyachon.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'depph8393jrmuv',
-        'USER': 'buhyylcwuvoafr',
-        'PASSWORD': 'bc9c2c4e1e0d42bb437b0c6bc9da32d62950e462594a20df22bcd9ab1a583b69',
-        'HOST': 'ec2-52-87-58-157.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'panyachondb',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
-DATABASES['default']=dj_database_url.config(default='postgres://buhyylcwuvoafr:bc9c2c4e1e0d42bb437b0c6bc9da32d62950e462594a20df22bcd9ab1a583b69@ec2-52-87-58-157.compute-1.amazonaws.com:5432/depph8393jrmuv')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -128,5 +126,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_FILE=os.path.join(BASE_DIR,'static')
 STATIC_URL = '/static/'
 CRISPY_TEMPLATE_PACK='bootstrap4'

@@ -1,1 +1,0 @@
-web: gunicorn panyachon.wsgi --log-file -
