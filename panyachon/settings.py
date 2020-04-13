@@ -84,12 +84,12 @@ WSGI_APPLICATION = 'panyachon.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'panyachondb',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'depph8393jrmuv',
+        'USER': 'buhyylcwuvoafr',
+        'PASSWORD': 'bc9c2c4e1e0d42bb437b0c6bc9da32d62950e462594a20df22bcd9ab1a583b69',
+        'HOST': 'ec2-52-87-58-157.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 DATABASES['default']=dj_database_url.config(default='postgres://buhyylcwuvoafr:bc9c2c4e1e0d42bb437b0c6bc9da32d62950e462594a20df22bcd9ab1a583b69@ec2-52-87-58-157.compute-1.amazonaws.com:5432/depph8393jrmuv')
