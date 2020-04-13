@@ -1,1 +1,1 @@
-web: gunicorn payachon.wsgi --log-file -
+web: gunicorn panyachon.wsgi --log-file -
