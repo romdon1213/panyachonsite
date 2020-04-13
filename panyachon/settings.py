@@ -25,7 +25,7 @@ SECRET_KEY = 'h(66*ceg9lp=@9owan)jk!8kfr6h_#ln%c2hq@=y+-26&#)yn='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://floating-anchorage-03204.herokuapp.com/']
+ALLOWED_HOSTS = ['https://floating-anchorage-03204.herokuapp.com/']#https://floating-anchorage-03204.herokuapp.com/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
