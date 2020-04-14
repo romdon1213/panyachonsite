@@ -5,6 +5,7 @@ from pagesite.models import Article, Category, ReadList, ReadList_Item
 from pagesite.form import SignupForm
 from django.contrib.auth.models import Group,User
 
+
 # Create your views here.
 
 
@@ -35,8 +36,9 @@ def article(request):
     articles = articles.order_by('?')
     sortarticle = request.POST.get('sortarticle', None)
     sortcate = request.POST.get('sortcate', 'all')
+    cate= Category.objects.all()
 
-    if sortcate == "all":
+    if sortcate == "all" :
         articles = articles.order_by('?')
         if sortarticle == "date":
             articles = articles.order_by('-updated')
@@ -44,8 +46,9 @@ def article(request):
             articles = articles.order_by('-view')
         if sortarticle == "namear":
             articles = articles.order_by('name')
-    if sortcate == "/category/tasoawuf":
-        articles = Article.objects.all().filter(category="1")
+    else:
+        cate = Category.objects.all().get(name=sortcate)
+        articles = Article.objects.all().filter(category=cate)
         articles = articles.order_by('?')
         if sortarticle == "date":
             articles = articles.order_by('-updated')
@@ -53,43 +56,6 @@ def article(request):
             articles = articles.order_by('-view')
         if sortarticle == "namear":
             articles = articles.order_by('name')
-    if sortcate == "/category/fiqh":
-        articles = Article.objects.all().filter(category="2")
-        articles = articles.order_by('?')
-        if sortarticle == "date":
-            articles = articles.order_by('-updated')
-        if sortarticle == "pop":
-            articles = articles.order_by('-view')
-        if sortarticle == "namear":
-            articles = articles.order_by('name')
-    if sortcate == "/category/aqidah":
-        articles = Article.objects.all().filter(category="3")
-        articles = articles.order_by('?')
-        if sortarticle == "date":
-            articles = articles.order_by('-updated')
-        if sortarticle == "pop":
-            articles = articles.order_by('-view')
-        if sortarticle == "namear":
-            articles = articles.order_by('name')
-    if sortcate == "/category/other":
-        articles = Article.objects.all().filter(category="4")
-        articles = articles.order_by('?')
-        if sortarticle == "date":
-            articles = articles.order_by('-updated')
-        if sortarticle == "pop":
-            articles = articles.order_by('-view')
-        if sortarticle == "namear":
-            articles = articles.order_by('name')
-    if sortcate == "/category/social":
-        articles = Article.objects.all().filter(category="5")
-        articles = articles.order_by('?')
-        if sortarticle == "date":
-            articles = articles.order_by('-updated')
-        if sortarticle == "pop":
-            articles = articles.order_by('-view')
-        if sortarticle == "namear":
-            articles = articles.order_by('name')
-
     return render(request, 'article.html', {'articles': articles, })
 
 

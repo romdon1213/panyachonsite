@@ -32,7 +32,9 @@
         </div>
     </div>
     <div class="card-body"><!--ส่วนตัวกล่องหลัก-->
-
+        {% if not r_article %}
+            <div class="alert alert-danger"><p class="text-center">ยังไม่มีบทความในหมวดหมู่นี้ ทางเว็บไซต์กำลังรวบรวมข้อมูลเพื่อพี่น้องชาวปัญญาชนอิสลามต่อไป อินชาอัลลอฮ์</p></div>
+        {% else %}
         {% for article in r_article %}
         <div class="card shadow mb-1 " style="border-top: 3px solid green ; padding:20px">
             <div class="row no-gutters">
@@ -62,7 +64,7 @@
             </div>
         </div>
         {% endfor%}
-
+        {%endif%}
 
     </div>
     <div class="ml-auto p-1 bd-highlight" style="border-bottom: 3px solid green ; padding:20px">

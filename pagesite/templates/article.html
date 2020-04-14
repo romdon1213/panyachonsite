@@ -26,8 +26,8 @@
                             <select name="sortcate">
                                 <option selected="selected" disabled>หมวดหมู่บทความ--</option>
                                 <option value="all">ทั้งหมด</option>
-                                {%for category in links %}
-                                <option value="{{category.get_url}}">{{category.name}}</option>
+                                {%for category in links %}<!--category.get_url-->
+                                <option value="{{category}}">{{category.name}}</option>
                                 {%endfor%}
                             </select>
                             <input type="submit" value="ตกลง" class="btn btn-secondary">
