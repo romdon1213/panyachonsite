@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4252e571-6a51-41f4-a888-c639cd67da1c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pagesite/templates/static/image/received_2061336687500058.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/article.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/article.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panyachon/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/panyachon/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
