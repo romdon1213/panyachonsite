@@ -1,0 +1,231 @@
+{% extends 'layout.html'%}
+{%load static%}
+{%block head%}
+{%include 'picheadpage.html'%}
+{%endblock%}
+{%block content%}
+<div class="card border-0 shadow mb-0">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#article" data-toggle="tab">บทความ
+                <span class="badge badge-success">{% if itemcount_article > 0 %}
+                {{itemcount_article}}
+                {% else %}
+                 0
+                {% endif %}
+                </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#masalah" data-toggle="tab">มัสอะละห์
+                <span class="badge badge-success">
+                {% if itemcount_article > 0 %}
+                {{itemcount_article}}
+                {% else %}
+                0
+                {% endif %}
+                </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#post" data-toggle="tab">โพสต์
+             <span class="badge badge-success">{% if itemcount_post > 0 %}
+                {{itemcount_post}}
+                {% else %}
+                 0
+                {% endif %}
+                </span>
+            </a>
+        </li>
+    </ul>
+</div><!--menutabs-->
+
+<div class="tab-content border-0 shadow mb-0">
+
+    <div class="tab-pane" id="article"><!--กล่องหลัก-->
+        {% if not readlist_items %}
+        <div class="alert alert-danger my-2 mx-2"><p class="text-center">คุณยังไม่ได้เพิ่มบทความเข้าใน readlist
+            ของคุณ</p>
+        </div>
+        {% else %}
+        <div class="table-responsive cart_info">
+
+            <table class="table table-condensed">
+                <thead>
+                <tr class="cart_menu">
+                    <td class="image"></td>
+                    <td class="image">บทความ</td>
+                    <td class="image">หมวดหมู่</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in readlist_items %}
+                <tr>
+                    <td class="cart_product">
+                        <a href="{{item.article.get_url}}"><img src="{{item.article.image.url}}"
+                                                                alt="{{item.article.name}}"
+                                                                width="50px" height="50px"></a>
+                    </td>
+                    <td class="cart_description">
+                        <h6><a href="{{item.article.get_url}}">{{item.article.name}}</a></h6>
+                    </td>
+                    <td><p>{{item.article.category.name}}</p></td>
+                    <td class="cart_delete">
+                        <a onclick="return confirm('คุณต้องการลบออกจาก readlist ของคุณหรือไม่ ?')"
+                           class="cart_quantity_delete" href="{% url 'remove_article_fromreadlist' item.article.id %}"><i
+                                class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+
+        </div>
+        <br>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">ก่อนหน้า</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">2<span class="sr-only">(current)</span></span>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">ถัดไป</a>
+                </li>
+            </ul>
+        </nav>
+
+        {% endif %}
+    </div> <!--กล่องarticle-->
+
+    <div class="tab-pane" id="masalah"><!--กล่องmasalah-->
+        {% if not readlist_items %}
+        <div class="alert alert-danger my-2 mx-2"><p class="text-center">คุณยังไม่ได้เพิ่มมัสอะละห์เข้าใน readlist
+            ของคุณ</p>
+        </div>
+        {% else %}
+        <div class="table-responsive cart_info">
+
+            <table class="table table-condensed">
+                <thead>
+                <tr class="cart_menu">
+                    <td class="image"></td>
+                    <td class="image">บทความ</td>
+                    <td class="image">หมวดหมู่</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in readlist_items %}
+                <tr>
+                    <td class="cart_product">
+                        <a href="{{item.article.get_url}}"><img src="{{item.article.image.url}}"
+                                                                alt="{{item.article.name}}"
+                                                                width="50px" height="50px"></a>
+                    </td>
+                    <td class="cart_description">
+                        <h6><a href="{{item.article.get_url}}">{{item.article.name}}</a></h6>
+                    </td>
+                    <td><p>{{item.article.category.name}}</p></td>
+                    <td class="cart_delete">
+                        <a onclick="return confirm('คุณต้องการลบออกจาก readlist ของคุณหรือไม่ ?')"
+                           class="cart_quantity_delete" href="{% url 'remove_article_fromreadlist' item.article.id %}"><i
+                                class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+
+        </div>
+
+        <br>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">ก่อนหน้า</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">2<span class="sr-only">(current)</span></span>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">ถัดไป</a>
+                </li>
+            </ul>
+        </nav>
+
+        {% endif %}
+    </div> <!--กล่องmasalah-->
+
+    <div class="tab-pane" id="post"><!--กล่องmasalah-->
+        {% if not readlist_items_post %}
+        <div class="alert alert-danger my-2 mx-2"><p class="text-center">คุณยังไม่ได้เพิ่มโพสต์เข้าใน readlist
+            ของคุณ</p>
+        </div>
+        {% else %}
+        <div class="table-responsive cart_info">
+
+            <table class="table table-condensed">
+                <thead>
+                <tr class="cart_menu">
+                    <td class="image"></td>
+                    <td class="image">หัวข้อโพสต์</td>
+                    <td class="image">หมวดหมู่</td>
+                    <td class="image">ผู้เขียน</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in readlist_items_post %}
+                <tr>
+                    <td class="cart_product">
+                        <a href="{{item.post.get_url}}"><img src="/static/image/received_2061336687500058.jpeg" alt=""
+                                                             width="50px" height="50px"></a>
+                    </td>
+                    <td class="cart_description">
+                        <h6><a href="{{item.post.get_url}}">{{item.post.title}}</a></h6>
+                    </td>
+                    <td><p>{{item.post.category.name}}</p></td>
+                    <td><p>{{item.post.author}}</p></td>
+                    <td class="cart_delete">
+                        <a onclick="return confirm('คุณต้องการลบออกจาก readlist ของคุณหรือไม่ ?')"
+                           class="cart_quantity_delete" href="{% url 'remove_post_fromreadlist' item.post.id %}"><i
+                                class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+
+        </div>
+        <br>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">ก่อนหน้า</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">2<span class="sr-only">(current)</span></span>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">ถัดไป</a>
+                </li>
+            </ul>
+        </nav>
+
+        {% endif %}
+    </div> <!--กล่องpost-->
+
+</div>
+{%endblock%}
