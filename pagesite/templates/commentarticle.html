@@ -1,0 +1,121 @@
+{% load crispy_forms_tags %}
+<div class="d-flex justify-content-center">
+    <div class="form-group row">
+        {% if request.user.is_authenticated %}
+        <form method="POST" class="comment-form" action="">
+            {% csrf_token %}
+            {{commentarticleform.media}}
+            {{ commentarticleform|crispy }}
+            <p style="text-align:right">
+                <input type="submit" value="แสดงความคิดเห็น" class="btn btn-success">
+            </p>
+        </form>
+        {% else %}
+        <div class="d-flex justify-content-center">
+            <div class="jumbotron">
+                <p>แสดงความคิดเห็นโปรด <a href="{% url 'signin' %}?next={{ request.path|urlencode }}">เข้าสู่ระบบ</a>
+                    หรือ <a
+                            href="{% url 'signup' %}">สมัครสมาชิก</a></p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<i class="fa fa-comments" aria-hidden="true"></i> {{commentarticle_count.count}} ความคิดเห็น
+<hr>
+{% for comment in commentarticle %}
+<div class="card shadow mb-2" style="border: 3px solid darkturquoise">
+
+    <div class="card-header">
+
+        <div class="d-flex bd-highlight  ">
+            {% if comment.user.profile.photo %}
+            <img src="{{comment.user.profile.photo.url}}" class="navbar-img bd-placeholder-img rounded-circle">
+            {% else %}
+            <img src="/media/Profile-PNG-Icon-715x715.png/" class="navbar-img bd-placeholder-img rounded-circle">
+            {% endif %}
+            {{comment.user.first_name}}
+
+        </div>
+    </div>
+
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <h6>{{comment.content|safe}}</h6>
+
+            <hr>
+            <footer><small>
+                <i class="fa fa-comments" aria-hidden="true"></i> ความคิดเห็นที่ {{forloop.counter}} |
+                <i class="fa fa-calendar" aria-hidden="true"> </i> {{comment.timestamp|date:'SHORT_DATE_FORMAT'}} |
+                <i class="fa fa-clock" aria-hidden="true"> </i> {{comment.timestamp|time:'H:i'}} |
+            </small>
+                <cite title="Source Title">
+                    <button type="button" name="button" class="reply-btn btn btn-outline-dark btn-sm">
+                        <i class="fa fa-reply" aria-hidden="true"></i> ตอบกลับ
+                    </button>
+                    {%if comment.replies.all%}
+                    <button type="button" name="button" class="look-reply-btn btn btn-outline-dark btn-sm">
+                        <i class="fa fa-arrow-down" aria-hidden="true"></i> ดูการตอบกลับ
+                    </button>
+                    {%endif%}
+                </cite>
+            </footer>
+        </blockquote>
+    </div>
+</div>
+<div class="replied-comments container mt-2" style="display:none;">
+    <div class="form-group d-flex flex-row-reverse ">
+        {% if request.user.is_authenticated %}
+        <form method="POST" class="reply-form" action="">
+            {% csrf_token %}
+            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+            {{commentarticleform.media}}
+            {{commentarticleform|crispy }}
+            <p style="text-align:right">
+                <input type="submit" value="ตอบกลับ" class="btn btn-success">
+            </p>
+        </form>
+        {% else %}
+        <div class="d-flex justify-content-center">
+            <div class="jumbotron">
+                <p>ตอบความคิดเห็นโปรด <a href="{% url 'signin' %}?next={{ request.path|urlencode }}">เข้าสู่ระบบ</a>
+                    หรือ <a
+                            href="{% url 'signup' %}">สมัครสมาชิก</a></p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="look-reply container mt-2" style="display:none;"><!--lookreply-->
+    {% for reply in comment.replies.all %}
+    <div class="rpy card shadow mb-2 " style="border: 3px solid springgreen ">
+        <div class="card-header">
+            <div class="d-flex bd-highlight">
+                {% if reply.user.profile.photo %}
+                <img src="{{reply.user.profile.photo.url}}" class="navbar-img bd-placeholder-img rounded-circle">
+                {% else %}
+                <img src="/media/Profile-PNG-Icon-715x715.png/"
+                     class="navbar-img bd-placeholder-img rounded-circle">
+                {% endif %}
+                {{reply.user.first_name}}
+            </div>
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <h6>{{reply.content|safe}}</h6>
+
+                <hr>
+                <footer><small>
+                    <i class="fa fa-comments" aria-hidden="true"></i> ตอบกลับที่ {{forloop.counter}} |
+                    <i class="fa fa-calendar" aria-hidden="true"> </i> {{reply.timestamp|date:'SHORT_DATE_FORMAT'}}
+                    |
+                    <i class="fa fa-clock" aria-hidden="true"> </i> {{reply.timestamp|time:'H:i'}} |
+                </small>
+                </footer>
+            </blockquote>
+        </div>
+    </div>
+    {% endfor %}
+</div><!--lookreply-->
+
+{% endfor %}

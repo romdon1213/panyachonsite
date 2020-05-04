@@ -1,0 +1,47 @@
+{% extends 'layout.html'%}
+{%block head%}
+{%include 'picheadpage.html'%}
+{%endblock%}
+{%block content%}
+<div class="card border-0 shadow mb-4" id="article">
+<div class="card-body"><!--ส่วนตัวกล่องหลัก-->
+
+        <br>
+
+
+        <div class="container">
+
+            {% if not articles%}
+            <div class="alert alert-danger"><p class="text-center">ไม่พบข้อมูล</p></div>
+            {% else %}
+            {% for article in articles %}
+            <div class="card" style="border-top: 3px solid green ; padding:20px">
+                <a style="color:#006400" class="card-link" href="{{article.get_url}}"><h5 style="color:green">
+
+                    {%if article.name%}
+                    {{article.name}}
+                    {%else%}
+                    {{article.title}}
+                    {%endif%}
+
+                </h5></a>
+                <div class="modal-footer">
+
+                    <p class="card-text"><small class="text-muted">อัพเดทล่าสุด : {{article.updated}}</small></p>
+                    <p class="card-text"><small class="text-muted"><kbd>ถูกอ่าน : {{article.view}}
+                        ครั้ง</kbd></small>
+                    </p>
+                    <p class="card-text"><small class="text-muted">หมวดหมู่ : {{article.category.name}}</small></p>
+                    <a href="{%url 'addtoreadlist' article.id %}">
+                        <button type="button" class="btn btn-success">readlist <span
+                                class="badge badge-light">+</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+            {% endfor%}
+            {%endif%}
+        </div>
+    </div>
+</div>
+{%endblock%}

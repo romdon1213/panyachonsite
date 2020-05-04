@@ -3,10 +3,40 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="description"
+          content="เว็บไซต์เพื่อชนชาวมุสลิม และ มุสลิมะห์ ทุกๆท่าน เพื่อค้นหาความรู้ และร่วมแบ่งปันความรู้แด่พี่น้องทุกๆท่าน">
+    <meta name="author" content="PANYACHON ISLAM">
     <meta name="generator" content="Jekyll v3.8.6">
-    <title>PANYACHONISLAM-ปัญญาชนอิสลาม</title>
+
+    <!--class Meta for facebook-->
+    <meta property="og:url" content="{%block pathpage%}{%endblock%}"/>
+    <meta property="og:type" content="{%block type%}{%endblock%}"/>
+    <meta property="og:title" content="{%block titleface%}{%endblock%}"/>
+    <meta property="og:description" content="{%block descripe%}{%endblock%}"/>
+    <meta property="og:image" content="{%block pathpic%}{%endblock%}"/>
+
+    <!--            <style>-->
+    <!--            img {-->
+    <!--    max-width: 100%;-->
+    <!--    height: auto!important;-->
+    <!--}-->
+
+    <!--            </style>-->
+    <style>
+        .navbar-img{
+        width:50px;
+        height:50px;
+        float:left;
+        background-size:auto 100%;
+        margin-top:-5px;
+        margin-right:5px;
+        }
+
+
+
+    </style>
+
+    <title>{%block title%}{%endblock%}</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@200;300;400&display=swap" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
@@ -28,9 +58,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@200&display=swap" rel="stylesheet">
 </head>
 <body style="background-color:#E0FFFF ; font-family: 'Sarabun', sans-serif;">
+{%load static%}
 <!-- แถบเมนูบนสุด -->
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top " style="background-color:#2E8B57">
+        <img src="/media/logonowrite.png/" class="navbar-img bd-placeholder-img rounded-circle"
+             style="background:white">
         <a class="navbar-brand" href="{%url 'index'%}">PANYACHON ISLAM</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,31 +71,59 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
+                {%if request.user.is_authenticated and request.user.first_name%}
                 <li class="nav-item">
-                    <a class="nav-link" href="{%url 'signup' %}">สมัครสมาชิก</a>
+                    <a href="{%url 'blog_user'%}">
+                        {% if request.user.profile.photo %}
+                        <img src="{{request.user.profile.photo.url}}"
+                             class="navbar-img bd-placeholder-img rounded-circle"></a>
+                    {% else %}
+                    <a href="{%url 'blog_user'%}">
+                        <img src="/media/Profile-PNG-Icon-715x715.png/"
+                             class="navbar-img bd-placeholder-img rounded-circle"></a>
+                    {% endif %}
+                    <span style="color:white">
+                    <a class="navbar-brand" href="{%url 'blog_user'%}">{{request.user.first_name}}</a></span>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">ลงชื่อเข้าใช้</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'readlistdetail' %}">
-                        <button type="button" class="btn btn-success ">
-                            readlist <span class="badge badge-light">
-                            {% if itemcount > 0 %}
-                            {{itemcount}}
-                            {% else %}
-                                0
-                            {% endif %}
-
-                        </span>
-
-                        </button>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-list" aria-hidden="true"></i>
                     </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{%url 'signout'%}">ลงชื่อออก <i class="fas fa-sign-out-alt"
+                                                                                       aria-hidden="true"></i></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{%url 'edit_profile'%}">แก้ไขโปรไฟล์ <i class="fa fa-wrench"
+                                                                                               aria-hidden="true"></i></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{%url 'postcreate'%}">สร้างโพสต์ <i class="fas fa-pen"
+                                                                                           aria-hidden="true"></i></a>
+                    </div>
                 </li>
+                {%else%}
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'signup' %}">สมัครสมาชิก | </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signin' %}?next={{ request.path|urlencode }}">ลงชื่อเข้าใช้ <i
+                            class="fas fa-sign-in-alt"
+                            aria-hidden="true"></i></a>
+                </li>
+                <li class="nav-item">
+                    {% if request.user.is_authenticated %}
+                    <a class="nav-link" href="{%url 'postcreate'%}">สร้างโพสต์ <i class="fas fa-pen"></i></a>
+                    {%else%}
+                    <a class="nav-link" href="{% url 'signin' %}?next={{ request.path|urlencode }}">สร้างโพสต์ <i
+                            class="fas fa-pen"></i></a>
+                    {%endif%}
+                </li>
+                {%endif%}
             </ul>
-            <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2 border-0 shadow" type="text" placeholder="ค้นหาข้อมูล"
+
+            <form class="form-inline mt-2 mt-md-0" action="{% url 'search' %}">
+                <input name="search" class="form-control mr-sm-2 border-0 shadow" type="text" placeholder="ค้นหาข้อมูล"
                        aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ค้นหา</button>
             </form>
@@ -77,20 +138,28 @@
     <div class="nav nav-expand-md justify-content-center border-0 shadow mb-4" style="background-color:#3CB371">
         <div class="btn-group" role="group" aria-label="Basic example">
             <a href="{% url 'index'%}">
-                <button type="button" class="btn btn-secondary" style="background-color:#2E8B57">
-                    หน้าหลัก
+                <button type="button" class="btn btn-success" style="background-color:#2E8B57;width:70px">
+                    <i class="fa fa-home fa-2x" aria-hidden="true"></i>
                 </button>
             </a>
-            <button type="button" class="btn btn-secondary" style="background-color:#2E8B57">ปัญหาศาสนา</button>
+            <a href="{%url 'masalah'%}">
+                <button type="button" class="btn btn-success" style="background-color:#2E8B57;width:70px">
+                    <i class="fa fa-question fa-2x" aria-hidden="true"></i>
+                </button>
+            </a>
             <a href="{% url 'article'%}">
-                <button type="button" class="btn btn-secondary" style="background-color:#2E8B57">
-                    บทความอิสลาม
+                <button type="button" class="btn btn-success" style="background-color:#2E8B57;width:70px">
+                    <i class="fa fa-newspaper fa-2x" aria-hidden="true"></i>
                 </button>
             </a>
 
-            <button type="button" class="btn btn-secondary" style="background-color:#2E8B57">เครื่องมือศาสนา</button>
+            <button type="button" class="btn btn-success" style="background-color:#2E8B57;width:70px">
+                <i class='fas fa-mosque fa-2x' aria-hidden="true"></i>
+            </button>
             <a href="{% url 'blog'%}">
-                <button type="button" class="btn btn-secondary" style="background-color:#2E8B57">บอร์ดสนทนา >></button>
+                <button type="button" class="btn btn-success" style="background-color:#2E8B57;width:70px">
+                    <i class='far fa-edit fa-2x' aria-hidden="true"></i>
+                </button>
             </a>
 
         </div>
@@ -125,5 +194,146 @@
         </div>
     </div>
 </footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(event){
+<!--        $('#delete').click(function(){-->
+<!--            return confirm(" คุณค้องการลบโพสต์ของคุณหรือไม่ ");-->
+<!--        });-->
+        $('.reply-btn').click(function(){
+            $(this).parent().parent().parent().parent().parent().next('.replied-comments').fadeToggle();
+        });
+
+        $(function(){
+            setTimeout(function(){
+            $('#alertpost').slideUp(2000);
+            },5000);
+        })
+
+        $(document).on('click','#like_post',function(event){
+            event.preventDefault();
+            var pk =$(this).attr('value');
+            $.ajax({
+                type:'POST',
+                url:'{% url 'like_post' %}',
+                data:{'id':pk,'csrfmiddlewaretoken':'{{ csrf_token }}'},
+                dataType:'json',
+                success:function(response){
+                    $('#like-post-section').html(response['form']);
+                    console.log($('#like-post-section').html(response['form']));
+                },
+                error:function(rs,e){
+                    console.log(rs.responseText);
+                }
+            });
+        });
+
+        $(document).on('click','#like_article',function(event){
+            event.preventDefault();
+            var pk =$(this).attr('value');
+            $.ajax({
+                type:'POST',
+                url:'{% url 'like_article' %}',
+                data:{'id':pk,'csrfmiddlewaretoken':'{{ csrf_token }}'},
+                dataType:'json',
+                success:function(response){
+                    $('#like-article-section').html(response['form']);
+                    console.log($('#like-article-section').html(response['form']));
+                },
+                error:function(rs,e){
+                    console.log(rs.responseText);
+                }
+            });
+        });
+
+
+        $(document).on('click','#like_masalah',function(event){
+            event.preventDefault();
+            var pk =$(this).attr('value');
+            $.ajax({
+                type:'POST',
+                url:'{% url 'like_masalah' %}',
+                data:{'id':pk,'csrfmiddlewaretoken':'{{ csrf_token }}'},
+                dataType:'json',
+                success:function(response){
+                    $('#like-masalah-section').html(response['form']);
+                    console.log($('#like-masalah-section').html(response['form']));
+                },
+                error:function(rs,e){
+                    console.log(rs.responseText);
+                }
+            });
+        });
+
+        $('.look-reply-btn').click(function(){
+            $(this).parent().parent().parent().parent().parent().next().next('.look-reply').fadeToggle();
+        });
+
+
+        $(document).on('submit','.comment-form',function(event){
+            event.preventDefault();
+            console.log($(this).serialize());
+            $.ajax({
+                type:'POST',
+                url:$(this).attr('action'),
+                data:$(this).serialize(),
+                dataType:'json',
+                success:function(response){
+                    $('.main-comment-section').html(response['form']);
+                    $('textarea').val('');
+                    $('.reply-btn').click(function(){
+                        $(this).parent().parent().parent().parent().parent().next('.replied-comments').fadeToggle();
+                        $('textarea').val('');
+                    });
+                    $('.look-reply-btn').click(function(){
+                        $(this).parent().parent().parent().parent().parent().next().next('.look-reply').fadeToggle();
+                     });
+                 },
+                error:function(rs,e){
+                    console.log(rs.responseText);
+                }
+            });
+        });
+
+        $(document).on('submit','.reply-form',function(event){
+            event.preventDefault();
+            console.log($(this).serialize());
+            $.ajax({
+                type:'POST',
+                url:$(this).attr('action'),
+                data:$(this).serialize(),
+                dataType:'json',
+                success:function(response){
+                    $('.main-comment-section').html(response['form']);
+                    $('textarea').val('');
+                    $('.reply-btn').click(function(){
+                        $(this).parent().parent().parent().parent().parent().next('.replied-comments').fadeToggle();
+                        $('textarea').val('');
+                    });
+                    $('.look-reply-btn').click(function(){
+                        $(this).parent().parent().parent().parent().parent().next().next('.look-reply').fadeToggle();
+                     });
+                 },
+                error:function(rs,e){
+                    console.log(rs.responseText);
+                }
+            });
+        });
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
 </body>
 </html>

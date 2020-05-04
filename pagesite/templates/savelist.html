@@ -165,7 +165,7 @@
         {% endif %}
     </div> <!--กล่องmasalah-->
 
-    <div class="tab-pane" id="post"><!--กล่องmasalah-->
+    <div class="tab-pane" id="post"><!--กล่องpost-->
         {% if not readlist_items_post %}
         <div class="alert alert-danger my-2 mx-2"><p class="text-center">คุณยังไม่ได้เพิ่มโพสต์เข้าใน readlist
             ของคุณ</p>
@@ -184,17 +184,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for item in readlist_items_post %}
+                {% for item in save_post %}
                 <tr>
                     <td class="cart_product">
-                        <a href="{{item.post.get_url}}"><img src="/static/image/received_2061336687500058.jpeg" alt=""
+                        <a href="{{item.get_url}}"><img src="/static/image/received_2061336687500058.jpeg" alt=""
                                                              width="50px" height="50px"></a>
                     </td>
                     <td class="cart_description">
-                        <h6><a href="{{item.post.get_url}}">{{item.post.title}}</a></h6>
+                        <h6><a href="{{item.get_url}}">{{item.title}}</a></h6>
                     </td>
-                    <td><p>{{item.post.category.name}}</p></td>
-                    <td><p>{{item.post.author}}</p></td>
+                    <td><p>{{item.category.name}}</p></td>
+                    <td><p>{{item.author}}</p></td>
                     <td class="cart_delete">
                         <a onclick="return confirm('คุณต้องการลบออกจาก readlist ของคุณหรือไม่ ?')"
                            class="cart_quantity_delete" href="{% url 'remove_post_fromreadlist' item.post.id %}"><i

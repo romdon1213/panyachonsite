@@ -1,29 +1,194 @@
 {% extends 'layout.html'%}
 
+
+{%block title%}ปัญญาชนอิสลาม-แหล่งความรู้เพื่อนชนชาวอิสลาม{%endblock%}
+
 {% block head %}
 {%include 'picheadhome.html'%}
+<div id="masalahdiv"></div>
 {%endblock%}
-
 {% load static %}
 {%block content%}
+<!--กล่อง masalah-->
+<div class="card border-0 shadow mb-4"><!--กล่องหลัก-->
+    <div class="card-header" style="background-color:#3CB371"><!--ส่วนหัวกล่องหลัก-->
+        <div class="d-flex bd-highlight  ">
+            <a style="color:green" class="card-link" href="{%url 'article'%}">
+                <div style="color:white" class="p-2 bd-highlight">มัสอะละห์</div>
+            </a>
+
+            <div class="ml-auto p-1 bd-highlight">
+                <div class="d-flex flex-row-reverse bd-highlight">
+                    <div class="dropdown mr-0">
+
+                        <button style="background-color:#3CB371" type="button" class="btn btn-secondary dropdown-toggle"
+                                id="dropdownMenuOffset1"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0,0">
+                            หมวดหมู่มัสอะละห์
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                            <a class="dropdown-item" href="{%url 'index'%}#masalahdiv">- ทั้งหมด </a>
+                            {%for category in linksmasalah %}
+                            <a class="dropdown-item" href="{{category.get_url}}#masalahdiv">- {{category.name}}</a>
+                            {%endfor%}
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+    <div  class="card-body"> <!--ส่วนตัวกล่องหลัก-->
+        {% if not masalah %}
+        <div class="alert alert-danger"><p class="text-center">ยังไม่มีมัสอะละห์ในหมวดหมู่นี้
+            ทางเว็บไซต์กำลังรวบรวมข้อมูลเพื่อพี่น้องชาวปัญญาชนอิสลามต่อไป อินชาอัลลอฮ์</p></div>
+        {% else %}
+        {% for masalah in masalah %}
+        <div class="card shadow mb-1 " style="border-top: 3px solid green ; padding:20px">
+            <div class="row no-gutters">
+                <div class="col-sm-12">
+                    <div class="container">
+                        <a href="{{masalah.get_url}}"><p class="card-text">{{masalah.question|safe|truncatechars:200}}</span></p></a>
+                    </div>
+                    <div class="modal-footer">
+
+                        <p class="card-text"><span><small>
+                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{masalah.updated|date:'SHORT_DATE_FORMAT'}} |
+                        <i class="fa fa-clock" aria-hidden="true"> </i> {{masalah.updated|time:'H:i'}} |
+                        <i class="fa fa-tag" aria-hidden="true"></i> {{masalah.category.name}} |
+                        </small></span>
+                        </p>
+
+                        <p>
+                            | <span><i class="fa fa-comments" aria-hidden="true"></i> {{masalah.countcomment}} |</span>
+                            <span><i class="fa fa-eye" aria-hidden="true"></i> {{masalah.view}} |</span>
+                            <span><i class="fa fa-star" aria-hidden="true"></i> {{masalah.total_likes}} |</span>
+                            <!--                            <span><i class="fa fa-star" aria-hidden="true"></i> {{article.total_likes}} |</span>-->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor%}
+        {%endif%}
+
+    </div>
+    <div id="articlediv"></div>
+    <div class="ml-auto p-1 bd-highlight" style="border-bottom: 3px solid green ; padding:20px">
+        <a style="color:green" class="card-link" href="{%url 'masalah'%}"><h6>มัสอะละห์อื่น ๆ</h6></a>
+    </div>
+</div>
+<!--กล่องบทความ-->
 <div class="card border-0 shadow mb-4"><!--กล่องหลัก-->
     <div class="card-header" style="background-color:#3CB371"><!--ส่วนหัวกล่องหลัก-->
         <div class="d-flex bd-highlight  ">
             <a style="color:green" class="card-link" href="{%url 'article'%}">
                 <div style="color:white" class="p-2 bd-highlight">บทความนิยม</div>
             </a>
+
+            <div class="ml-auto p-1 bd-highlight">
+                <div class="d-flex flex-row-reverse bd-highlight">
+                    <div class="dropdown mr-0">
+
+                        <button style="background-color:#3CB371" type="button" class="btn btn-secondary dropdown-toggle"
+                                id="dropdownMenuOffset"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0,0">
+                            หมวดหมู่บทความ
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                            <a class="dropdown-item" href="{%url 'index'%}#articlediv">- ทั้งหมด </a>
+                            {%for category in links %}
+                            <a class="dropdown-item" href="{{category.get_url}}#articlediv">- {{category.name}}</a>
+                            {%endfor%}
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="card-body"> <!--ส่วนตัวกล่องหลัก-->
+        {% if not r_articles %}
+        <div class="alert alert-danger"><p class="text-center">ยังไม่มีบทความในหมวดหมู่นี้
+            ทางเว็บไซต์กำลังรวบรวมข้อมูลเพื่อพี่น้องชาวปัญญาชนอิสลามต่อไป อินชาอัลลอฮ์</p></div>
+        {% else %}
+        {% for article in r_articles %}
+        <div class="card shadow mb-1 " style="border-top: 3px solid green ; padding:20px">
+            <div class="row no-gutters">
+                <div class="col-sm-4">
+                    <a href="{{article.get_url}}">
+                        <img src="{{article.image.url}}" class="img-fluid img-thumbnail" alt="{{article.name}}">
+                    </a>
+
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="container">
+                        <a style="color:#006400" class="card-link" href="{{article.get_url}}"><h5 class="card-title">
+                            {{article.name|truncatechars:80}}</h5></a>
+                        <p class="card-text">{{article.description|safe|truncatechars:100}}<span><a
+                                href="{{article.get_url}}">อ่านเพิ่มเติม</a></span></p>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <p class="card-text"><span><small>
+                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{article.updated|date:'SHORT_DATE_FORMAT'}} |
+                        <i class="fa fa-clock" aria-hidden="true"> </i> {{article.updated|time:'H:i'}} |
+                        <i class="fa fa-tag" aria-hidden="true"></i> {{article.category.name}} |
+                        </small></span>
+                        </p>
+
+                        <p>
+                            | <span><i class="fa fa-comments" aria-hidden="true"></i> {{article.countcomment}} |</span>
+                            <span><i class="fa fa-eye" aria-hidden="true"></i> {{article.view}} |</span>
+                            <span><i class="fa fa-star" aria-hidden="true"></i> {{article.total_likes}} |</span>
+                            <!--                            <span><i class="fa fa-star" aria-hidden="true"></i> {{article.total_likes}} |</span>-->
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        {% endfor%}
+        {%endif%}
+
+    </div>
+    <div id="blogpost"></div>
+    <div class="ml-auto p-1 bd-highlight" style="border-bottom: 3px solid green ; padding:20px">
+        <a style="color:green" class="card-link" href="{%url 'article'%}"><h6>บทความอื่น ๆ</h6></a>
+    </div>
+
+</div>
+
+<!--กล่อง post-->
+<div class="card border-0 shadow mb-4" >
+    <div class="card-header" style="background-color:#3CB371"><!--ส่วนหัวกล่องหลัก-->
+        <div class="d-flex bd-highlight  ">
+            <a style="color:green" class="card-link" href="{%url 'blog'%}">
+                <div style="color:white" class="p-2 bd-highlight">โพสต์ยอดนิยม</div>
+            </a>
             <div class="ml-auto p-1 bd-highlight">
 
                 <div class="dropdown mr-0">
                     <button style="background-color:#3CB371" type="button" class="btn btn-secondary dropdown-toggle"
-                            id="dropdownMenuOffset"
+                            id="dropdownMenuOffset2"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="0,0">
-                        หมวดหมู่บทความ
+                        หมวดหมู่โพสต์
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                        <a class="dropdown-item" href="{%url 'index'%}">- ทั้งหมด </a>
-                        {%for category in links %}
-                        <a class="dropdown-item" href="{{category.get_url}}">- {{category.name}}</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset2">
+                        <a class="dropdown-item" href="{%url 'index'%}#blogpost">- ทั้งหมด </a>
+                        {%for category in linkspost %}
+                        <a class="dropdown-item" href="{{category.get_url}}#blogpost">- {{category.name}}</a>
 
                         {%endfor%}
                     </div>
@@ -32,31 +197,54 @@
         </div>
     </div>
     <div class="card-body"><!--ส่วนตัวกล่องหลัก-->
-        {% if not r_article %}
-            <div class="alert alert-danger"><p class="text-center">ยังไม่มีบทความในหมวดหมู่นี้ ทางเว็บไซต์กำลังรวบรวมข้อมูลเพื่อพี่น้องชาวปัญญาชนอิสลามต่อไป อินชาอัลลอฮ์</p></div>
+        {% if not post %}
+        <div class="alert alert-danger"><p class="text-center">ยังไม่มีบทความในหมวดหมู่นี้
+            ทางเว็บไซต์กำลังรวบรวมข้อมูลเพื่อพี่น้องชาวปัญญาชนอิสลามต่อไป อินชาอัลลอฮ์</p></div>
         {% else %}
-        {% for article in r_article %}
+        {% for p in post %}
         <div class="card shadow mb-1 " style="border-top: 3px solid green ; padding:20px">
             <div class="row no-gutters">
-                <div class="col-sm-4">
-                    <a href="{{article.get_url}}">
-                    <img src="{{article.image.url}}" class="img-fluid img-thumbnail" alt="{{article.name}}">
-                </a>
+                <div class="col-sm-3">
+                    <p style="text-align:center">
+                        <img class="bd-placeholder-img rounded-circle"
+                             width="100" height="100"
+
+                             src="
+                         {% if p.author.profile.photo %}
+                         {{p.author.profile.photo.url}}
+                         {%else%}
+                         /media/Profile-PNG-Icon-715x715.png/
+                         {%endif%}"
+                             preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
+                             aria-label="Placeholder: 100x100">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#777"/>
+                        </img>
+                        <br><br>
+                        {{p.author.first_name}}
+                    </p>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-9">
                     <div class="container">
-                        <a style="color:#006400" class="card-link" href="{{article.get_url}}"><h5 class="card-title">
-                            {{article.name}}</h5></a>
-                        <p class="card-text">{{article.description|safe|truncatewords:"4"}}<span><a
-                                href="{{article.get_url}}">อ่านเพิ่มเติม</a></span></p>
+                        <a style="color:#006400" class="card-link" href="{{p.get_url}}"><h5 class="card-title">
+                            {{p.title|truncatechars:80}}</h5></a>
+                        <p class="card-text">{{p.body|safe|truncatechars:100}}<span><a
+                                href="{{p.get_url}}">อ่านเพิ่มเติม</a></span></p>
 
                     </div>
                     <div class="modal-footer">
 
-                        <p class="card-text"><small class="text-muted">อัพเดทล่าสุด : {{article.updated}}</small> <span><kbd>ถูกอ่าน : {{article.view}} ครั้ง</kbd></span></p>
+                        <p class="card-text"><span><small>
+                        <i class="fa fa-clock" aria-hidden="true"> </i> {{p.updated}} |
+                        <i class="fa fa-tag" aria-hidden="true"></i> {{p.category.name}} |
+                        </small></span>
+                        </p>
 
-                        <a href="{%url 'addtoreadlist' article.id %}"><button type="button" class="btn btn-success">readlist <span class="badge badge-light">+</span>
-                        </button></a>
+                        <p>
+                            | <span><i class="fa fa-comments" aria-hidden="true"></i> {{p.countcomment}} |</span>
+                            <span><i class="fa fa-eye" aria-hidden="true"></i> {{p.view}} |</span>
+                            <span><i class="fa fa-star" aria-hidden="true"></i> {{p.total_likes}} |</span>
+                        </p>
                     </div>
 
                 </div>
@@ -68,31 +256,11 @@
 
     </div>
     <div class="ml-auto p-1 bd-highlight" style="border-bottom: 3px solid green ; padding:20px">
-        <a style="color:green" class="card-link" href="{%url 'article'%}"><h6>บทความอื่น ๆ</h6></a>
+        <a style="color:green" class="card-link" href="{%url 'blog'%}"><h6>โพสต์อื่นๆ</h6></a>
     </div>
 </div>
 
-<div class="card border-0 shadow mb-4">
-    <div class="card-header" style="background-color:#3CB371">
-        <h5>มัสอะละห์ (ถาม-ตอบปัญหาศาสนา)</h5>
-    </div>
-    <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-</div>
 
-<div class="card border-0 shadow mb-4">
-    <div class="card-header" style="background-color:#3CB371">
-        <h5>มัสอะละห์ (ถาม-ตอบปัญหาศาสนา)</h5>
-    </div>
-    <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-</div>
 {%endblock%}
 
 

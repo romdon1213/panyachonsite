@@ -1,0 +1,55 @@
+{% extends 'layout.html'%}
+{%block head%}
+{%include 'picheadpage.html'%}
+{%endblock%}
+{%block content%}
+<div class="card border-0 shadow mb-4"><!--กล่องหลัก-->
+    <div class="card-header" style="background-color:#3CB371"><!--ส่วนหัวกล่องหลัก-->
+        <div class="d-flex bd-highlight  ">
+            <a style="color:green" class="card-link" href="{%url 'article'%}">
+                <div style="color:white" class="p-2 bd-highlight">บทความนิยม</div>
+            </a>
+
+            <div class="ml-auto p-1 bd-highlight">
+                <div class="d-flex flex-row-reverse bd-highlight">
+                    <a class="dropdown-item" href="#">ดราฟต์โพสต์</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body"> <!--ส่วนตัวกล่องหลัก-->
+
+        {% for p in post %}
+        <div class="card shadow mb-1 " style="border-top: 3px solid green ; padding:20px">
+            <div class="row no-gutters">
+                <div class="col-sm-12">
+                    <div class="container">
+                        {% if p.author.profile.photo %}
+                        <img src="{{p.author.profile.photo.url}}" class="navbar-img">
+                        {% else %}
+                        <img src="/media/Profile-PNG-Icon-715x715.png/" class="navbar-img">
+                        {% endif %}
+                        <p>{{p.author.first_name}}</p>
+                        <a style="color:#006400" class="card-link" href="{{p.get_url}}"><h5 class="card-title">
+                            {{p.title}}</h5></a>
+                        <p class="card-text">{{p.body|safe|slice:"100"}}<span><a
+                                href="{{p.get_url}}">อ่านเพิ่มเติม</a></span></p>
+                    </div>
+                    <div class="modal-footer">
+
+                        <p class="card-text"><small class="text-muted">อัพเดทล่าสุด : {{p.updated}}</small> <span><kbd>อ่าน : {{p.view}} ครั้ง</kbd></span>
+                        </p>
+                        <p class="card-text"><small class="text-muted">หมวดหมู่ : {{p.category.name}}</small></p>
+                        {{p.countcomment}} ความคิดเห็น
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        {% endfor%}
+
+    </div>
+</div>
+{%endblock%}

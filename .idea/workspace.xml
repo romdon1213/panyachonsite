@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4252e571-6a51-41f4-a888-c639cd67da1c" name="Default Changelist" comment="" />
+    <list default="true" id="4252e571-6a51-41f4-a888-c639cd67da1c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/context_processors.py" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/context_processors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/form.py" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/form.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/article.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/article.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/articlePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/articlePage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/blog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/blogpage.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/blogpage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/savelist.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/savelist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panyachon/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/panyachon/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panyachon/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/panyachon/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,8 +30,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Unit Test" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -27,7 +46,9 @@
     </option>
   </component>
   <component name="ProjectId" id="1a26Xgb9Eou0zyhtFGzomeBW0KF" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -38,17 +59,20 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/media" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\static" />
-      <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\pagesite\templates" />
-      <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\pagesite\static\image" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\static\media" />
       <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\pagesite\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\static\media" />
+      <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\pagesite\templates" />
+      <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon" />
+      <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\panyachon" />
+      <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\pagesite" />
     </key>
   </component>
   <component name="RunManager">
@@ -113,61 +137,81 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1586184011769" />
-    <state width="1345" height="223" key="GridCell.Tab.0.bottom" timestamp="1586117231483">
+    <state width="1345" height="179" key="GridCell.Tab.0.bottom" timestamp="1588437744853">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="223" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1586117231483" />
-    <state width="1345" height="223" key="GridCell.Tab.0.center" timestamp="1586117231483">
+    <state width="1345" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1588437744853" />
+    <state width="1345" height="179" key="GridCell.Tab.0.center" timestamp="1588437744838">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="223" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1586117231483" />
-    <state width="1345" height="223" key="GridCell.Tab.0.left" timestamp="1586117231483">
+    <state width="1345" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1588437744838" />
+    <state width="1345" height="179" key="GridCell.Tab.0.left" timestamp="1588437744838">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="223" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1586117231483" />
-    <state width="1345" height="223" key="GridCell.Tab.0.right" timestamp="1586117231483">
+    <state width="1345" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1588437744838" />
+    <state width="1345" height="179" key="GridCell.Tab.0.right" timestamp="1588437744838">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="223" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1586117231483" />
-    <state width="1345" height="223" key="GridCell.Tab.1.bottom" timestamp="1586117231483">
+    <state width="1345" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1588437744838" />
+    <state width="1345" height="179" key="GridCell.Tab.1.bottom" timestamp="1588437744853">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="223" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1586117231483" />
-    <state width="1345" height="223" key="GridCell.Tab.1.center" timestamp="1586117231483">
+    <state width="1345" height="179" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1588437744853" />
+    <state width="1345" height="179" key="GridCell.Tab.1.center" timestamp="1588437744853">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="223" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1586117231483" />
-    <state width="1345" height="223" key="GridCell.Tab.1.left" timestamp="1586117231483">
+    <state width="1345" height="179" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1588437744853" />
+    <state width="1345" height="179" key="GridCell.Tab.1.left" timestamp="1588437744853">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="223" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1586117231483" />
-    <state width="1345" height="223" key="GridCell.Tab.1.right" timestamp="1586117231483">
+    <state width="1345" height="179" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1588437744853" />
+    <state width="1345" height="179" key="GridCell.Tab.1.right" timestamp="1588437744853">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="223" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1586117231483" />
-    <state x="184" y="6" key="SettingsEditor" timestamp="1586014781564">
+    <state width="1345" height="179" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1588437744853" />
+    <state x="259" y="13" key="SettingsEditor" timestamp="1588164009604">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1586014781564" />
+    <state x="259" y="13" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1588164009604" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1586802139648">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1586802139648" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1586802773452">
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1588206619484">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1586802773452" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1586802528258">
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1588206619484" />
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1588458806383">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1586802528258" />
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1588458806383" />
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.RecentChangeDialog" timestamp="1586802196265">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.RecentChangeDialog/0.0.1366.728@0.0.1366.728" timestamp="1586802196265" />
-    <state x="-1" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1586014249064">
+    <state x="424" y="7" key="refactoring.ChangeSignatureDialog" timestamp="1587852788972">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="-1" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1586014249064" />
+    <state x="424" y="7" key="refactoring.ChangeSignatureDialog/0.0.1366.728@0.0.1366.728" timestamp="1587852788972" />
+    <state x="-1" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1588429258574">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="-1" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1588429258574" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pagesite/views.py</url>
+          <line>190</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pagesite/views.py</url>
+          <line>68</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

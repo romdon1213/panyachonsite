@@ -1,0 +1,83 @@
+{% load crispy_forms_tags %}
+<div class="d-flex justify-content-center">
+    <div class="form-group row">
+        {% if request.user.is_authenticated %}
+        <form method="POST" class="comment-form" action="">
+            {% csrf_token %}
+            {{commentpostform.media}}
+            {{ commentpostform|crispy }}
+            <input type="submit" value="แสดงความคิดเห็น" class="btn btn-success">
+        </form>
+        {% else %}v
+        <div class="d-flex justify-content-center">
+            <div class="jumbotron">
+                <p>แสดงความคิดเห็นโปรด <a href="{% url 'signin' %}">เข้าสู่ระบบ</a> หรือ <a
+                        href="{% url 'signup' %}">สมัครสมาชิก</a></p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{{commentpost_count.count}} ความคิดเห็น
+<hr>
+{% for comment in commentpost %}
+<div class="card mb-2">
+
+    <div class="card-header">
+        {% if comment.user.profile.photo %}
+        <img src="{{comment.user.profile.photo.url}}" class="navbar-img">
+        {% else %}
+        <img src="/media/Profile-PNG-Icon-715x715.png/" class="navbar-img">
+        {% endif %}
+        {{comment.user.first_name}}
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <p class="mb-0">{{comment.content|safe}}</p>
+            <hr>
+            <footer class="blockquote-footer"><small>{{comment.timestamp}}</small>
+                <cite title="Source Title">
+                    <button type="button" name="button" class="reply-btn btn btn-outline-dark btn-sm">
+                        ตอบกลับ{{count.comment.reply}}
+                    </button>
+                </cite>
+            </footer>
+        </blockquote>
+    </div>
+</div>
+<div class="replied-comments container mt-2" style="display:none;">
+    <div class="form-group row">
+        {% if request.user.is_authenticated %}
+        <form method="POST" class="reply-form" action="">
+            {% csrf_token %}
+            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+            {{commentpostform.media}}
+            {{commentpostform|crispy }}
+            <input type="submit" value="ตอบกลับ" class="btn btn-success">
+        </form>
+        {% else %}
+        <div class="d-flex justify-content-center">
+            <div class="jumbotron">
+                <p>ตอบความคิดเห็นโปรด <a href="{% url 'signin' %}">เข้าสู่ระบบ</a> หรือ <a
+                        href="{% url 'signup' %}">สมัครสมาชิก</a></p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% for reply in comment.replies.all %}
+<div class="container mt-2">
+    <blockquote class="blockquote">
+        {% if reply.user.profile.photo %}
+        <img src="{{reply.user.profile.photo.url}}" class="navbar-img">
+        {% else %}
+        <img src="/media/Profile-PNG-Icon-715x715.png/" class="navbar-img">
+        {% endif %}
+        <p class="mb-0">{{reply.content|safe}}</p>
+        <footer class="blockquote-footer"> โดย <cite title="Source Title">{{reply.user.first_name}}</cite>
+        </footer>
+    </blockquote>
+</div>
+{% endfor %}
+
+{% endfor %}
