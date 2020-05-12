@@ -1,4 +1,17 @@
 {% extends 'layout.html'%}
+{%block title%}ปัญญาชนอิสลาม-{{post.title}}{%endblock%}
+<!--class Meta for facebook-->
+{%block pathpage%}{{post.get_url}}{%endblock%}
+{%block type%}panyachonislam.com{%endblock%}
+{%block titleface%}{{post.title}}{%endblock%}
+{%block descripe%}{{post.body|safe}}{%endblock%}
+<!--end class Meta for facebook-->
+<!--class Meta for twitter-->
+{%block t-pathpage%}{{post.get_url}}{%endblock%}
+{%block t-type%}panyachonislam.com{%endblock%}
+{%block t-titleface%}{{post.title}}{%endblock%}
+{%block t-descripe%}{{post.body|safe}}{%endblock%}
+<!--end class Meta for twitter-->
 {%block head%}
 {%include 'picheadpage.html'%}
 {%endblock%}
@@ -12,53 +25,76 @@
 </div>
 <div class="container">
     <div class="card shadow mb-2" style="border-top: 3px solid green ; padding:20px">
-
         <div class="card-body text-center">
-            <img style="margin-left: auto;margin-right: auto " class="bd-placeholder-img rounded-circle" width="140"
-                 height="140"
-                 src="/static/image/received_2061336687500058.jpeg"
-                 preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#777"/>
-
-            </img>
-            <div class="modal-footer">
-
-                <p class="card-text"><small class="text-muted">อัพเดทล่าสุด : {{post.updated}}</small></p>
-                <p class="card-text"><small class="text-muted">
-                    <span><kbd>{{totallikes}} like </kbd></span>
-                    <span><kbd>ถูกอ่าน : {{post.view}} ครั้ง</kbd></span></small></p>
-                <a href="#">
-                    <button type="button" class="btn btn-success">readlist <span class="badge badge-light">+</span>
-                    </button>
-                </a>
-                </span>
-            </div>
-
+            <a style="color:#20B2AA" class="card-link"
+               href="{% if post.author == request.user %}
+                    {%url 'blog_user'%}
+                    {%else%}
+                    {{post.author.profile.get_url}}
+                    {%endif%}"><p>
+                {{post.author.first_name}}<br><small>@ {{post.author.username}}</small></p></a>
+            <a href="{% if post.author == request.user %}
+                    {%url 'blog_user'%}
+                    {%else%}
+                    {{post.author.profile.get_url}}
+                    {%endif%}">
+                <img style="margin-left: auto;margin-right: auto "
+                     class="bd-placeholder-img rounded-circle" width="140"
+                     height="140"
+                     src="{% if post.author.profile.photo %}
+                         {{post.author.profile.photo.url}}
+                         {%else%}
+                         /media/Profile-PNG-Icon-715x715.png/
+                         {%endif%}"
+                     preserveAspectRatio="xMidYMid slice" focusable="false"
+                     role="img" aria-label="Placeholder: 140x140">
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#777"/>
+                </img></a>
+            <hr>
             <h5>{{post.title}}</h5>
-            <br>
-
         </div>
-
-
         <div class="card-body">{{post.body|safe}}</div>
-        <div id="like-post-section">
-            {% include 'like_post_section.html' %}
+        <div><p style="text-align:center">
+            <small>แชร์ไปยัง :</small>
+            <a href="http://www.facebook.com/sharer.php?u=http://www.panyachonislam.com{{post.get_url}}">
+                <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+            </a>&nbsp;
+            <a href="https://twitter.com/share?text={{ post.title|truncatechars:200 }}&url=http://www.panyachonislam.com{{post.get_url}}&hashtags=อิสลาม">
+                <i class="fa fa-twitter fa-2x" aria-hidden="true"></i>
+            </a></p>
+        </div>
+        <div class="modal-footer">
+            <p class="card-text"><span><small>
+                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{post.updated|date:'d/m/Y'}} |
+                        <i class="fa fa-clock" aria-hidden="true"> </i> {{post.updated|time:'H:i'}} |
+                        </small></span>
+            </p>
+            <p><span><small><i class="fa fa-tag" aria-hidden="true"></i> {{post.category.name}}</small></span></p>
+            <p>
+                <span><i class="fa fa-eye" aria-hidden="true"></i> {{post.view}} |</span>
+            </p>
+            <div id="like-post-section">
+                {% include 'like_post_section.html' %}
+            </div>
+            {% if post.author == request.user %}
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <a href="{% url 'post_edit' id=post.id %}">
+                        <button class="dropdown-item" type="button">แก้ไขโพสต์</button>
+                    </a>
+                    <a onclick="return confirm('คุณต้องการลบโพสต์/บทความของคุณหรือไม่ ?')"
+                       href="{% url 'post_delete' id=post.id %}">
+                        <button class="dropdown-item" type="button">ลบโพสต์</button>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
         </div>
 
-        {% if post.author == request.user %}
-        <div>
-            <a href="{% url 'post_edit' id=post.id %}">
-                <button type="button" class="btn btn-outline-success">แก้ไขโพสต์</button>
-            </a>
-        </div>
-        <div>
-            <a onclick="return confirm('คุณต้องการลบโพสต์/บทความของคุณหรือไม่ ?')"
-               href="{% url 'post_delete' id=post.id %}" id="delete">
-                <button type="button" class="btn btn-outline-danger">ลบโพสต์</button>
-            </a>
-        </div>
-        {% endif %}
         <hr>
         <div class="main-comment-section">
             {%include 'commentpost.html'%}
@@ -73,4 +109,13 @@
     </div>
 </div>
 
+{%endblock%}
+{%block praytime%}
+{%include 'blockpraytime.html'%}
+{%endblock%}
+
+{%block ads%}
+{%include 'blockpost.html'%}
+{%include 'blockarticle.html'%}
+{%include 'blockmasalah.html'%}
 {%endblock%}

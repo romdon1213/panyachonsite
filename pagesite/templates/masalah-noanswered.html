@@ -1,5 +1,5 @@
 {% extends 'layout.html'%}
-{%block title%}ปัญญาชนอิสลาม-{{request.user.username}}{%endblock%}
+{%block title%}ปัญญาชนอิสลาม-มัสอะละห์-{{request.user.username}}{%endblock%}
 {%block head%}
 {%include 'picheadpage.html'%}
 {%endblock%}
@@ -12,7 +12,7 @@
     {% endif %}
 </div>
 <div class="card border-0 shadow mb-4"><!--กล่องหลัก-->
-    <div class="card-header" style="background-color:#7FFFD4"><!--ส่วนหัวกล่องหลัก-->
+    <div class="card-header" style="background-color:#90EE90"><!--ส่วนหัวกล่องหลัก-->
         <div class="d-flex bd-highlight  ">
             {% if request.user.profile.photo %}
             <img src="{{user.profile.photo.url}}" class="navbar-img bd-placeholder-img rounded-circle">
@@ -39,60 +39,37 @@
         </div>
     </div>
     <div class="card-body"> <!--ส่วนตัวกล่องหลัก-->
-        {% if not post %}
-        <div class="alert alert-danger"><p class="text-center">ยังไม่มีโพสต์/บทความของคุณ เริ่มสร้างโพสต์ <a href="{% url 'postcreate'%}">ที่นี่</a></p></div>
+        <a href="{%url 'masalah-answered'%}"><span class="badge badge-pill badge-light">ได้รับการตอบแล้ว</span></a>
+        <a href="{%url 'masalah-noanswered'%}"><span class="badge badge-pill badge-success">ยังไม่ได้รับการตอบ-{{masalah.count}}</span></a><hr>
+        {% if not masalah %}
+        <div class="alert alert-danger"><p class="text-center">ยังไม่มีคำถามที่ไม่ได้รับการตอบกลับ</p></div>
         {% else %}
-        {% for p in page_obj %}
-        {% if p.author == request.user %}
+        {% for masalah in page_obj %}
+        {% if masalah.quester == request.user %}
         <div class="card shadow mb-1 " style="border-top: 3px solid green ; padding:20px">
             <div class="row no-gutters">
                 <div class="col-sm-12">
                     <div class="d-flex bd-highlight  ">
-                        {% if p.author.profile.photo %}
-                        <img src="{{p.author.profile.photo.url}}" class="navbar-img rounded-circle">
+                        {% if masalah.quester.profile.photo %}
+                        <img src="{{masalah.quester.profile.photo.url}}" class="navbar-img rounded-circle">
                         {% else %}
                         <img src="/media/Profile-PNG-Icon-715x715.png/" class="navbar-img rounded-circle">
                         {% endif %}
-                        <p>{{p.author.first_name}} <br> <small>@{{p.author.username}}</small></p>
+                        <p>{{masalah.quester.first_name}} <br> <small>@{{masalah.quester.username}}</small></p>
 
                     </div>
                     <div class="container">
-                        <a style="color:#006400" class="card-link" href="{{p.get_url}}"><h5 class="card-title">
-                            {{p.title|truncatechars:60}}</h5></a>
-                        <p class="card-text">{{p.body|safe|truncatechars:100|striptags}}...<span><a
-                                href="{{p.get_url}}">อ่านเพิ่มเติม</a></span></p>
+                        <p class="card-text">{{masalah.question|safe|truncatechars:100|striptags}}</p>
                     </div>
                     <div class="modal-footer">
 
                         <p class="card-text"><span><small>
-                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{p.updated|date:'d/m/Y'}} |
-                        <i class="fa fa-clock" aria-hidden="true"> </i> {{p.updated|time:'H:i'}} |
-                        <i class="fa fa-tag" aria-hidden="true"></i> {{p.category.name}} |
+                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{masalah.created|date:'d/m/Y'}} |
+                        <i class="fa fa-clock" aria-hidden="true"> </i> {{masalah.created|time:'H:i'}} |
+                        <i class="fa fa-tag" aria-hidden="true"></i> {{masalah.category.name}} |
                         </small></span>
                         </p>
 
-                        <p>
-                            | <span><i class="fa fa-comments" aria-hidden="true"></i> {{p.get_num_comment}} |</span>
-                            <span><i class="fa fa-eye" aria-hidden="true"></i> {{p.view}} |</span>
-                            <span><i class="fa fa-star" aria-hidden="true"></i> {{p.total_likes}} |</span>
-                            <!--                            <span><i class="fa fa-star" aria-hidden="true"></i> {{article.total_likes}} |</span>-->
-                        </p>
-                        {% if p.author == request.user %}
-                        <div class="dropdown">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <a href="{% url 'post_edit' id=p.id %}">
-                                    <button class="dropdown-item" type="button">แก้ไขโพสต์</button>
-                                </a>
-                                <a onclick="return confirm('คุณต้องการลบโพสต์/บทความของคุณหรือไม่ ?')"
-                                   href="{% url 'post_delete' id=p.id %}">
-                                    <button class="dropdown-item" type="button">ลบโพสต์</button>
-                                </a>
-                            </div>
-                        </div>
-                        {% endif %}
                     </div>
 
                 </div>
@@ -170,7 +147,7 @@
 {%endblock%}
 
 {%block ads%}
-{%include 'blockarticle.html'%}
-{%include 'blockmasalah.html'%}
 {%include 'blockpost.html'%}
+{%include 'blockmasalah.html'%}
+{%include 'blockarticle.html'%}
 {%endblock%}

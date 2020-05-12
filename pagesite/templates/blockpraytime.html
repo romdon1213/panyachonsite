@@ -1,0 +1,34 @@
+<div class="card  shadow mb-4" style="border-top: 3px solid green">
+    <div class="card-header">เวลาละหมาดวันนี้ <small> ภาคกลาง-กรุงเทพมหานคร</small></div>
+    <div class="card-body text-primary">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>ซุบฮิ</td>
+                <td>{{block_praytime_non.fajr}}</td>
+            </tr>
+            <tr>
+                <td>ชุรูก</td>
+                <td>{{block_praytime_non.shuruq}}</td>
+            </tr>
+            <tr>
+                <td>ซุห์ริ</td>
+                <td>{{block_praytime_non.dhuri}}</td>
+            </tr>
+            <tr>
+                <td>อัสรี่</td>
+                <td>{{block_praytime_non.asri}}</td>
+            </tr>
+            <tr>
+                <td>มัฆริบ</td>
+                <td>{{block_praytime_non.maghrib}}</td>
+            </tr>
+            <tr>
+                <td>อิชาอฺ</td>
+                <td>{{block_praytime_non.isha}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <a href="{%url 'praytime'%}"><p style="text-align:right"><small>ดูเวลาละหมาดภาคอื่นๆ</small></p></a>
+    </div>
+</div>

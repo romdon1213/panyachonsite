@@ -13,7 +13,7 @@
     <span><kbd style="background-color:#2E8B57;">{{totallikes}} ดาว </kbd></span>
 </form>
 {% else %}
-<a href="{% url 'signin' %}?next={{ request.path|urlencode }}"><button class="btn btn-primary">
+<a href="{% url 'signin' %}?next={{ request.path|urlencode }}"><button class="btn btn-outline-success">
     <i class="fa fa-star" aria-hidden="true"></i>
 </button></a>
 <span><kbd style="background-color:#2E8B57;">{{totallikes}} ดาว </kbd></span>

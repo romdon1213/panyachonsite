@@ -1,5 +1,5 @@
 {% extends 'layout.html'%}
-{%block title%}ปัญญาชนอิสลาม-{{request.user.username}}{%endblock%}
+{%block title%}ปัญญาชนอิสลาม-ฉบับร่างโพสต์-{{request.user.username}}{%endblock%}
 {%block head%}
 {%include 'picheadpage.html'%}
 {%endblock%}
@@ -12,7 +12,7 @@
     {% endif %}
 </div>
 <div class="card border-0 shadow mb-4"><!--กล่องหลัก-->
-    <div class="card-header" style="background-color:#7FFFD4"><!--ส่วนหัวกล่องหลัก-->
+    <div class="card-header" style="background-color:#EEE8AA"><!--ส่วนหัวกล่องหลัก-->
         <div class="d-flex bd-highlight  ">
             {% if request.user.profile.photo %}
             <img src="{{user.profile.photo.url}}" class="navbar-img bd-placeholder-img rounded-circle">
@@ -40,7 +40,8 @@
     </div>
     <div class="card-body"> <!--ส่วนตัวกล่องหลัก-->
         {% if not post %}
-        <div class="alert alert-danger"><p class="text-center">ยังไม่มีโพสต์/บทความของคุณ เริ่มสร้างโพสต์ <a href="{% url 'postcreate'%}">ที่นี่</a></p></div>
+        <div class="alert alert-danger"><p class="text-center">ยังไม่มีฉบับร่างโพสต์/บทความของคุณ<br><br>เริ่มสร้างฉบับร่างโพสต์ของคุณ <a
+                href="{% url 'postcreate'%}">ที่นี่</a> เพื่อบันทึกแล้วทำการแก้ไขก่อนเผยแพร่สู่สาธารณะ</p></div>
         {% else %}
         {% for p in page_obj %}
         {% if p.author == request.user %}
@@ -54,12 +55,11 @@
                         <img src="/media/Profile-PNG-Icon-715x715.png/" class="navbar-img rounded-circle">
                         {% endif %}
                         <p>{{p.author.first_name}} <br> <small>@{{p.author.username}}</small></p>
-
                     </div>
                     <div class="container">
                         <a style="color:#006400" class="card-link" href="{{p.get_url}}"><h5 class="card-title">
                             {{p.title|truncatechars:60}}</h5></a>
-                        <p class="card-text">{{p.body|safe|truncatechars:100|striptags}}...<span><a
+                        <p class="card-text">{{p.body|safe|truncatechars:200|striptags}}...<span><a
                                 href="{{p.get_url}}">อ่านเพิ่มเติม</a></span></p>
                     </div>
                     <div class="modal-footer">
@@ -170,7 +170,7 @@
 {%endblock%}
 
 {%block ads%}
-{%include 'blockarticle.html'%}
 {%include 'blockmasalah.html'%}
+{%include 'blockarticle.html'%}
 {%include 'blockpost.html'%}
 {%endblock%}

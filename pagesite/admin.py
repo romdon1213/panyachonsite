@@ -6,8 +6,9 @@ admin.site.register(city)
 admin.site.register(CategoryPost)
 
 class MasalahAdmin(admin.ModelAdmin):
-    list_display = ('question','slug','category','updated','view')
-    list_editable=('category',)
+    list_display = ('question','slug','category','updated','quester','available','answered')
+    list_editable=('category','answered')
+    list_filter=('created','answered')
 admin.site.register(Masalah,MasalahAdmin)
 admin.site.register(CommentMasalah)
 admin.site.register(CategoryMasalah)
@@ -19,7 +20,7 @@ admin.site.register(Article,ArticleAdmin)
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title','slug','author','status')
-    list_filter = ('status','created','updated')
+    list_filter = ('status','created','updated','author')
     search_fields = ('author__username','title')
     prepopulated_fields = {'slug':('title',)}
     list_editable = ('status',)

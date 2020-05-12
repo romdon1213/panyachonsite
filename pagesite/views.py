@@ -1,5 +1,7 @@
+from itertools import chain
+
 import requests
-from django.db.models import F, Count
+from django.db.models import F, Count, Q
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, get_object_or_404, redirect
@@ -11,9 +13,9 @@ from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 from pagesite import filters
 from pagesite.models import Article, Category, Post, CategoryPost, Profile, \
-    CommentPost, CommentArticle,Masalah,CategoryMasalah,CommentMasalah
+    CommentPost, CommentArticle, Masalah, CategoryMasalah, CommentMasalah
 from pagesite.form import SignupForm, PostCreateForm, UserEditForm, ProfileEditForm, UserLoginForm, PostEditForm, \
-    CommentPostForm, CommentArticleForm, CommentMasalahForm
+    CommentPostForm, CommentArticleForm, CommentMasalahForm, MasalahCreateform
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
@@ -26,15 +28,15 @@ from django.contrib import messages
 # Create your views here.
 
 
-def index(request, category_article_slug=None, category_post_slug=None,category_masalah_slug=None ):
+def index(request, category_article_slug=None, category_post_slug=None, category_masalah_slug=None):
     category_article = None
     category_post = None
     category_masalah = None
     if category_masalah_slug != None:
         category_masalah = get_object_or_404(CategoryMasalah, slug=category_masalah_slug)
-        masalah = Masalah.objects.all().filter(category=category_masalah, available=True)
+        masalah = Masalah.objects.all().filter(category=category_masalah, answered=True)
     else:
-        masalah = Masalah.objects.all().filter(available=True)
+        masalah = Masalah.objects.all().filter(answered=True)
 
     if category_article_slug != None:
         category_article = get_object_or_404(Category, slug=category_article_slug)
@@ -61,12 +63,14 @@ def index(request, category_article_slug=None, category_post_slug=None,category_
                'r_articles': r_article,
                'category_post': category_post,
                'post': r_post,
-               'category_masalah':category_masalah,
-               'masalah':r_masalah,
+               'category_masalah': category_masalah,
+               'masalah': r_masalah,
                }
     return render(request, 'index.html', context)
-#masalah
-def masalahPage(request, category_masalah_slug,masalah_slug):
+
+
+# masalah
+def masalahPage(request, category_masalah_slug, masalah_slug):
     try:
         masalah = Masalah.objects.get(category__slug=category_masalah_slug, slug=masalah_slug)
         Masalah.objects.filter(pk=masalah.pk).update(view=F('view') + 1)
@@ -107,8 +111,9 @@ def masalahPage(request, category_masalah_slug,masalah_slug):
 
     return render(request, 'masalahpage.html', context)
 
+
 def masalah(request):
-    filter = filters.MasalahFilters(request.GET, queryset=Masalah.objects.all())
+    filter = filters.MasalahFilters(request.GET, queryset=Masalah.objects.all().filter(answered=True).order_by('?'))
     # articles = Article.objects.all().filter(available=True)
     paginator = Paginator(filter.qs, 15)
     page = request.GET.get('page')
@@ -123,6 +128,60 @@ def masalah(request):
         'filter': filter
     }
     return render(request, 'masalah.html', context)
+
+
+def masalah_answered(request):
+    masalah = Masalah.objects.all().filter(quester=request.user, answered=True)
+    masalah = masalah.order_by('-updated')
+    paginator = Paginator(masalah, 15)
+    page = request.GET.get('page')
+    try:
+        response = paginator.page(page)
+    except PageNotAnInteger:
+        response = paginator.page(1)
+    except EmptyPage:
+        response = paginator.page(paginator.num_pages)
+    context = {
+        'masalah': masalah,
+        'page_obj': response,
+    }
+    return render(request, 'masalah-answered.html', context)
+
+
+def masalah_noanswered(request):
+    masalah = Masalah.objects.all().filter(quester=request.user, answered=False)
+    masalah = masalah.order_by('-updated')
+    paginator = Paginator(masalah, 15)
+    page = request.GET.get('page')
+    try:
+        response = paginator.page(page)
+    except PageNotAnInteger:
+        response = paginator.page(1)
+    except EmptyPage:
+        response = paginator.page(paginator.num_pages)
+    context = {
+        'masalah': masalah,
+        'page_obj': response,
+    }
+    return render(request, 'masalah-noanswered.html', context)
+
+
+def masalah_create(request):
+    if request.method == 'POST':
+        form = MasalahCreateform(request.POST)
+        if form.is_valid():
+            masalah = form.save(commit=False)
+            masalah.quester = request.user
+            masalah.save()
+            messages.success(request, "ส่งคำถามเรียบร้อยแล้ว")
+            return redirect('masalah-noanswered')
+    else:
+        form = MasalahCreateform
+    context = {
+        'form': form
+    }
+    return render(request, 'masalahcreateform.html', context)
+
 
 def like_masalah(request):
     # post = get_object_or_404(Post, id=request.POST.get('post_id'))
@@ -145,6 +204,7 @@ def like_masalah(request):
         html = render_to_string('like_masalah_section.html', context, request=request)
         return JsonResponse({'form': html})
     # return HttpResponseRedirect(post.get_url())
+
 
 def articlePage(request, category_article_slug, article_slug):
     try:
@@ -189,7 +249,7 @@ def articlePage(request, category_article_slug, article_slug):
 
 
 def article(request):
-    filter = filters.ArticleFilters(request.GET, queryset=Article.objects.all())
+    filter = filters.ArticleFilters(request.GET, queryset=Article.objects.all().filter(available=True).order_by('?'))
     # articles = Article.objects.all().filter(available=True)
     paginator = Paginator(filter.qs, 15)
     page = request.GET.get('page')
@@ -237,7 +297,7 @@ def post_create(request):
             post.author = request.user
             post.save()
             messages.success(request, "สร้างโพสต์/บทความรียบร้อยแล้ว")
-            return redirect('blog')
+            return redirect('blog_user')
     else:
         form = PostCreateForm
     context = {
@@ -270,12 +330,12 @@ def post_delete(request, id):
     if request.user != post.author:
         raise Http404()
     post.delete()
-    messages.warning(request, 'ลบโพสต์/บทความเรียบร้อยแล้ว'.format(post.title))
-    return redirect('blog')
+    messages.warning(request, 'ลบโพสต์/บทความ {} เรียบร้อยแล้ว'.format(post.title))
+    return redirect('blog_user')
 
 
 def blog(request):
-    filter = filters.PostFilters(request.GET, queryset=Post.objects.all())
+    filter = filters.PostFilters(request.GET, queryset=Post.objects.all().filter(status='published').order_by('?'))
     # articles = Article.objects.all().filter(available=True)
     paginator = Paginator(filter.qs, 15)
     page = request.GET.get('page')
@@ -333,19 +393,61 @@ def blogpage(request, category_post_slug, post_slug):
     return render(request, 'blogpage.html', context)
 
 
-def blog_user(request):
-    post = Post.objects.all().filter(status='published')
-    post = post.order_by('?')
-    post = Post.objects.all().annotate(countcomment=Count('commentpost'))
+def blog_user_draft(request):
+    post = Post.objects.all().filter(author=request.user, status='dratf')
+    post = post.order_by('-updated')
+    paginator = Paginator(post, 15)
+    page = request.GET.get('page')
+    try:
+        response = paginator.page(page)
+    except PageNotAnInteger:
+        response = paginator.page(1)
+    except EmptyPage:
+        response = paginator.page(paginator.num_pages)
+    context = {
+        'post': post,
+        'page_obj': response,
+    }
+    return render(request, 'blog_user_draft.html', context)
 
-    return render(request, 'blog_user.html', {'post': post, })
+
+def blog_user(request):
+    post = Post.objects.all().filter(author=request.user, status='published')
+    post = post.order_by('-updated')
+    paginator = Paginator(post, 15)
+    page = request.GET.get('page')
+    try:
+        response = paginator.page(page)
+    except PageNotAnInteger:
+        response = paginator.page(1)
+    except EmptyPage:
+        response = paginator.page(paginator.num_pages)
+    context = {
+        'post': post,
+        'page_obj': response,
+    }
+    return render(request, 'blog_user.html', context)
 
 
 def blog_each_user(request, user):
-    post = Post.objects.all().filter(author=user)
-    post = post.order_by('?')
+    userprofile = Profile.objects.all().get(user=user)
+    post = Post.objects.all().filter(author=user, status='published')
+    post = post.order_by('-updated')
     post = post.annotate(countcomment=Count('commentpost'))
-    return render(request, 'blog_each_user.html', {'post': post, })
+    paginator = Paginator(post, 15)
+    page = request.GET.get('page')
+    try:
+        response = paginator.page(page)
+    except PageNotAnInteger:
+        response = paginator.page(1)
+    except EmptyPage:
+        response = paginator.page(paginator.num_pages)
+    context = {
+        'post': post,
+        'user': userprofile,
+        'page_obj': response,
+    }
+    return render(request, 'blog_each_user.html', context)
 
 
 def like_post(request):
@@ -451,7 +553,7 @@ def signinview(request):
                 if 'next' in request.POST:
                     return redirect(request.POST.get('next'))
                 else:
-                    return redirect('index')
+                    return redirect('blog_user')
             else:
                 messages.success(request, "username/email/password ไม่ถูกต้อง โปรดตรวจสอบใหม่อีกครั้งหนึ่ง")
                 return redirect('signin')
@@ -465,23 +567,95 @@ def signoutview(request):
     return redirect('index')
 
 
-def test(request):
+def praytime(request):
     url = "https://aladhan.p.rapidapi.com/timingsByCity"
-
-    querystring = {"city": "Tarim", "country": "Yemen"}
-
+    city = ("Bangkok", "Narathiwat","Chiangrai","Khonkaen")
     headers = {
         'x-rapidapi-host': "aladhan.p.rapidapi.com",
         'x-rapidapi-key': "2544a08880mshd72d821fe59ae77p1e86ebjsnad28cedca983"
     }
-    response = requests.request("GET", url, headers=headers, params=querystring).json()
-    # pray_time={
-    #     'city':querystring['address'],
-    #     'time':response['data']['timings']
-    # }
-    print(response)
+    querystring = [{"city": i, "country": "thailand", "method": "1"} for i in city]
+    response = [requests.request("GET", url, headers=headers, params=i).json() for i in querystring]
+    praytime_non = {
+        'city': city[0],
+        'fajr': response[0]['data']['timings']['Fajr'],
+        'shuruq': response[0]['data']['timings']['Sunrise'],
+        'dhuri': response[0]['data']['timings']['Dhuhr'],
+        'asri': response[0]['data']['timings']['Asr'],
+        'maghrib': response[0]['data']['timings']['Sunset'],
+        'isha': response[0]['data']['timings']['Isha'],
+        'latitude': response[0]['data']['meta']['latitude'],  # 'meta': {'latitude'
+        'longitude': response[0]['data']['meta']['longitude'],
+    }
+    praytime_nara = {
+        'city': city[1],
+        'fajr': response[1]['data']['timings']['Fajr'],
+        'shuruq': response[1]['data']['timings']['Sunrise'],
+        'dhuri': response[1]['data']['timings']['Dhuhr'],
+        'asri': response[1]['data']['timings']['Asr'],
+        'maghrib': response[1]['data']['timings']['Sunset'],
+        'isha': response[1]['data']['timings']['Isha'],
+        'latitude': response[1]['data']['meta']['latitude'],  # 'meta': {'latitude'
+        'longitude': response[1]['data']['meta']['longitude'],
+    }
+    praytime_Chiangrai = {
+        'city': city[2],
+        'fajr': response[2]['data']['timings']['Fajr'],
+        'shuruq': response[2]['data']['timings']['Sunrise'],
+        'dhuri': response[2]['data']['timings']['Dhuhr'],
+        'asri': response[2]['data']['timings']['Asr'],
+        'maghrib': response[2]['data']['timings']['Sunset'],
+        'isha': response[2]['data']['timings']['Isha'],
+        'latitude': response[2]['data']['meta']['latitude'],  # 'meta': {'latitude'
+        'longitude': response[2]['data']['meta']['longitude'],
+    }
+    praytime_Khonkaen = {
+        'city': city[3],
+        'fajr': response[3]['data']['timings']['Fajr'],
+        'shuruq': response[3]['data']['timings']['Sunrise'],
+        'dhuri': response[3]['data']['timings']['Dhuhr'],
+        'asri': response[3]['data']['timings']['Asr'],
+        'maghrib': response[3]['data']['timings']['Sunset'],
+        'isha': response[3]['data']['timings']['Isha'],
+        'latitude': response[3]['data']['meta']['latitude'],  # 'meta': {'latitude'
+        'longitude': response[3]['data']['meta']['longitude'],
+    }
+    context = {
+        'praytime_non': praytime_non,
+        'praytime_nara': praytime_nara,
+        'praytime_Chiangrai':praytime_Chiangrai,
+        'praytime_Khonkaen':praytime_Khonkaen,
+    }
+    # print(praytime)
 
-    return render(request, 'praytime.html')
+    return render(request, 'praytime.html', context)
+
+def blockpraytime(request):
+    url = "https://aladhan.p.rapidapi.com/timingsByCity"
+    city = ("Bangkok", "Narathiwat","Chiangrai","Khonkaen")
+    headers = {
+        'x-rapidapi-host': "aladhan.p.rapidapi.com",
+        'x-rapidapi-key': "2544a08880mshd72d821fe59ae77p1e86ebjsnad28cedca983"
+    }
+    querystring = [{"city": i, "country": "thailand", "method": "1"} for i in city]
+    response = [requests.request("GET", url, headers=headers, params=i).json() for i in querystring]
+    praytime_non = {
+        'city': city[0],
+        'fajr': response[0]['data']['timings']['Fajr'],
+        'shuruq': response[0]['data']['timings']['Sunrise'],
+        'dhuri': response[0]['data']['timings']['Dhuhr'],
+        'asri': response[0]['data']['timings']['Asr'],
+        'maghrib': response[0]['data']['timings']['Sunset'],
+        'isha': response[0]['data']['timings']['Isha'],
+        'latitude': response[0]['data']['meta']['latitude'],  # 'meta': {'latitude'
+        'longitude': response[0]['data']['meta']['longitude'],
+    }
+    context = {
+        'praytime_non': praytime_non,
+    }
+    # print(praytime)
+    print(praytime_non)
+    return render(request,'blockpraytime.html', context)
 
 
 @login_required
@@ -509,11 +683,26 @@ def edit_profile(request):
 
 def search(request):
     search = request.GET['search']
-    articles = Article.objects.filter(description__contains=search) \
-               or Article.objects.filter(name__contains=search) \
-               or Post.objects.filter(title__contains=search) \
-               or Post.objects.filter(body__contains=search)
+    article = Article.objects.filter(name__contains=search,available=True)
+    post = Post.objects.filter(title__contains=search,status='published')
+    masalah = Masalah.objects.filter(question__contains=search,answered=True)
+    results=list(chain(article, post, masalah))
+    # articles = Article.objects.all().filter(description__contains=search,available=True) \
+    #            or Article.objects.all().filter(name__contains=search,available=True) \
+    #            or Post.objects.all().filter(title__contains=search,status='published') \
+    #            or Post.objects.all().filter(body__contains=search,status='published') \
+    #            or Masalah.objects.all().filter(question__contains=search,answered=True) \
+    #            or Masalah.objects.all().filter(answer__contains=search,answered=True)
+    paginator = Paginator(results, 15)
+    page = request.GET.get('page')
+    try:
+        response = paginator.page(page)
+    except PageNotAnInteger:
+        response = paginator.page(1)
+    except EmptyPage:
+        response = paginator.page(paginator.num_pages)
     context = {
-        'articles': articles
+        'articles': results,
+        'page_obj': response,
     }
     return render(request, 'search.html', context)

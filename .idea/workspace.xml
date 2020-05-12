@@ -6,16 +6,43 @@
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pagesite/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pagesite/context_processors.py" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/context_processors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/filters.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pagesite/form.py" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/form.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pagesite/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/acc_active_email.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/acc_active_email.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pagesite/templates/article.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/article.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pagesite/templates/articlePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/articlePage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/block_ads.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/block_ads.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pagesite/templates/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/blog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/blog_each_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/blog_each_user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/blog_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/blog_user.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pagesite/templates/blogpage.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/blogpage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/commentarticle.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/commentarticle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/commentmasalah.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/commentmasalah.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/commentpost.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/commentpost.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/edit_profile_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/edit_profile_form.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pagesite/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pagesite/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pagesite/templates/savelist.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/savelist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/like_article_section.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/like_article_section.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/like_masalah_section.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/like_masalah_section.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/like_post_section.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/like_post_section.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/masalah.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/masalah.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/masalahpage.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/masalahpage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/picheadhome.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/picheadhome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/post_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/post_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/postcraeteform.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/postcraeteform.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/praytime.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/praytime.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/registration/password_reset_complete.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/registration/password_reset_complete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/registration/password_reset_confirm.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/registration/password_reset_confirm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/registration/password_reset_done.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/registration/password_reset_done.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/registration/password_reset_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/registration/password_reset_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/signin.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/signin.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pagesite/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/signupconfirm.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/signupconfirm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/signupconfirm1.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/signupconfirm1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/signupconnotfirm.html" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/templates/signupconnotfirm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagesite/templates/test.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pagesite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/pagesite/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/panyachon/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/panyachon/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/panyachon/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/panyachon/urls.py" afterDir="false" />
@@ -59,17 +86,18 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/media" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pagesite" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\pagesite" />
       <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\static\media" />
       <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\pagesite\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\static\media" />
       <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\pagesite\templates" />
+      <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\static\media" />
       <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon" />
       <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\panyachon" />
       <recent name="C:\Users\romdo\Desktop\sitecreat\panyachon\pagesite" />
@@ -137,6 +165,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1586184011769" />
+    <state x="92" y="92" width="1182" height="544" key="DiffContextDialog" timestamp="1589152244934">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="92" y="92" width="1182" height="544" key="DiffContextDialog/0.0.1366.728@0.0.1366.728" timestamp="1589152244934" />
     <state width="1345" height="179" key="GridCell.Tab.0.bottom" timestamp="1588437744853">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -181,10 +213,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1588206619484" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1588458806383">
+    <state x="92" y="92" width="1182" height="544" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1588764383953">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1588458806383" />
+    <state x="92" y="92" width="1182" height="544" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1588764383953" />
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.RecentChangeDialog" timestamp="1586802196265">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -193,23 +225,38 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="424" y="7" key="refactoring.ChangeSignatureDialog/0.0.1366.728@0.0.1366.728" timestamp="1587852788972" />
-    <state x="-1" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1588429258574">
+    <state x="-1" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1588861577167">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="-1" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1588429258574" />
+    <state x="-1" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1588861577167" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/pagesite/views.py</url>
-          <line>190</line>
+          <line>250</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/pagesite/views.py</url>
-          <line>68</line>
+          <line>72</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pagesite/views.py</url>
+          <line>525</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pagesite/context_processors.py</url>
+          <line>9</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pagesite/models.py</url>
+          <line>25</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

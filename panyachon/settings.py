@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'h(66*ceg9lp=@9owan)jk!8kfr6h_#ln%c2hq@=y+-26&#)yn='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'social_django',
     'six',
     'django.contrib.sites',
-
+    #
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -61,7 +61,7 @@ INSTALLED_APPS = [
 
 AUTHENTICATION_BACKENDS = [
 
-    'social_core.backends.google.GoogleOAuth2',
+    # 'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'django.contrib.auth.backends.ModelBackend',
     # 'pagesite.authentication.EmailAuthbackend',
@@ -134,6 +134,10 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'pagesite.context_processors.menu_links',
                 'pagesite.context_processors.menu_links_post',
+                'pagesite.context_processors.blockpraytime',
+                'pagesite.context_processors.blockpost',
+                'pagesite.context_processors.blockarticle',
+                'pagesite.context_processors.blockmasalah',
                 'pagesite.context_processors.menu_links_masalah',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
@@ -146,24 +150,24 @@ WSGI_APPLICATION = 'panyachon.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'panyachondb',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR,'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'panyachondb',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -188,7 +192,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bangkok'
 
 USE_I18N = True
 
@@ -200,14 +204,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # smtp
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # smtp
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'romdon1213@gmail.com'
-EMAIL_HOST_PASSWORD = '1129900193285don'
+EMAIL_HOST_USER = 'panyachonislam@gmail.com'
+EMAIL_HOST_PASSWORD = 'ROM1213Don3102'
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = 'ปัญญาชนอิสลาม <noreply@panyachonislam.com>'
 

@@ -1,7 +1,161 @@
-{%extends 'layout.html'%}
+{% extends 'layout.html'%}
+{%block title%}ปัญญาชนอิสลาม-เวลาละหมาดในประเทศไทย{%endblock%}
+{%block head%}
+{%include 'picheadpage.html'%}
+{%endblock%}
 {%block content%}
+<div class="container">
+    <div class="card" style="padding:20px">
 
-<h1>pray time-salah time</h1>
+        <h5>เวลาละหมาดประจำวันที่ {% now 'SHORT_DATE_FORMAT' %} <span><small> - ขณะนี้เวลา {% now 'H:i' %}</small></span></h5><hr>
+        <div class="card border-success shadow mb-3" style="background-color:#98FB98">
+            <div class="card-header">ภาคกลาง-กรุงเทพมหานคร <small>ตำแหน่ง ละติจูด: {{praytime_non.latitude}} | ลองจิจูด: {{praytime_non.longitude}}</small></div>
+            <div class="card-body text-primary">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>ซุบฮิ</td>
+                        <td>{{praytime_non.fajr}}</td>
+                    </tr>
+                    <tr>
+                        <td>ชุรูก</td>
+                        <td>{{praytime_non.shuruq}}</td>
+                    </tr>
+                    <tr>
+                        <td>ซุห์ริ</td>
+                        <td>{{praytime_non.dhuri}}</td>
+                    </tr>
+                    <tr>
+                        <td>อัสรี่</td>
+                        <td>{{praytime_non.asri}}</td>
+                    </tr>
+                    <tr>
+                        <td>มัฆริบ</td>
+                        <td>{{praytime_non.maghrib}}</td>
+                    </tr>
+                    <tr>
+                        <td>อิชาอฺ</td>
+                        <td>{{praytime_non.isha}}</td>
+                    </tr>
 
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
+        <div class="card border-primary shadow mb-3" style="background-color:#7FFFD4">
+            <div class="card-header">ภาคใต้-นราธิวาส <small>ตำแหน่ง ละติจูด: {{praytime_nara.latitude}} | ลองจิจูด: {{praytime_nara.longitude}}</small></div>
+            <div class="card-body text-primary">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>ซุบฮิ</td>
+                        <td>{{praytime_nara.fajr}}</td>
+                    </tr>
+                    <tr>
+                        <td>ชุรูก</td>
+                        <td>{{praytime_nara.shuruq}}</td>
+                    </tr>
+                    <tr>
+                        <td>ซุห์ริ</td>
+                        <td>{{praytime_nara.dhuri}}</td>
+                    </tr>
+                    <tr>
+                        <td>อัสรี่</td>
+                        <td>{{praytime_nara.asri}}</td>
+                    </tr>
+                    <tr>
+                        <td>มัฆริบ</td>
+                        <td>{{praytime_nara.maghrib}}</td>
+                    </tr>
+                    <tr>
+                        <td>อิชาอฺ</td>
+                        <td>{{praytime_nara.isha}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card border-danger shadow mb-3" style="background-color:#FFA07A">
+            <div class="card-header">ภาคเหนือ-เชียงราย <small>ตำแหน่ง ละติจูด: {{praytime_Chiangrai.latitude}} | ลองจิจูด: {{praytime_Chiangrai.longitude}}</small></div>
+            <div class="card-body text-primary">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>ซุบฮิ</td>
+                        <td>{{praytime_Chiangrai.fajr}}</td>
+                    </tr>
+                    <tr>
+                        <td>ชุรูก</td>
+                        <td>{{praytime_Chiangrai.shuruq}}</td>
+                    </tr>
+                    <tr>
+                        <td>ซุห์ริ</td>
+                        <td>{{praytime_Chiangrai.dhuri}}</td>
+                    </tr>
+                    <tr>
+                        <td>อัสรี่</td>
+                        <td>{{praytime_Chiangrai.asri}}</td>
+                    </tr>
+                    <tr>
+                        <td>มัฆริบ</td>
+                        <td>{{praytime_Chiangrai.maghrib}}</td>
+                    </tr>
+                    <tr>
+                        <td>อิชาอฺ</td>
+                        <td>{{praytime_Chiangrai.isha}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card border-warning shadow mb-3" style="background-color:#F0E68C">
+            <div class="card-header">ภาคอีสาน-ขอนแก่น <small>ตำแหน่ง ละติจูด: {{praytime_Khonkaen.latitude}} | ลองจิูจด: {{praytime_Khonkaen.longitude}}</small></div>
+            <div class="card-body text-primary">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>ซุบฮิ</td>
+                        <td>{{praytime_Khonkaen.fajr}}</td>
+                    </tr>
+                    <tr>
+                        <td>ชุรูก</td>
+                        <td>{{praytime_Khonkaen.shuruq}}</td>
+                    </tr>
+                    <tr>
+                        <td>ซุห์ริ</td>
+                        <td>{{praytime_Khonkaen.dhuri}}</td>
+                    </tr>
+                    <tr>
+                        <td>อัสรี่</td>
+                        <td>{{praytime_Khonkaen.asri}}</td>
+                    </tr>
+                    <tr>
+                        <td>มัฆริบ</td>
+                        <td>{{praytime_Khonkaen.maghrib}}</td>
+                    </tr>
+                    <tr>
+                        <td>อิชาอฺ</td>
+                        <td>{{praytime_Khonkaen.isha}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+<br>
+<!--{{praytime_non.fajr}}-->
+{%endblock%}
+
+{%block ads%}
+{%include 'blockmasalah.html'%}
+{%include 'blockarticle.html'%}
+{%include 'blockpost.html'%}
 {%endblock%}

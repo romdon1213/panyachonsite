@@ -1,0 +1,21 @@
+<div class="card  shadow mb-4" style="border-top: 3px solid green">
+    <div class="card-header">บทความอิสลาม</div>
+    <div class="card-body text-primary">
+        <table class="table">
+            <tbody>
+            {%for a in articleblock%}
+            <tr>
+
+                <td>
+                    <a href="{{a.get_url}}">
+                        <img src="{{a.image.url}}" alt="{{a.name}}" style="width:50px;height:50px">
+                    </a>
+                    <a class="card-link" href="{{a.get_url}}" style="color:green"> - {{a.name|truncatechars:27}}</a>
+                </td>
+            </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+        <a href="{%url 'article'%}"><p style="text-align:right"><small>ดูบทความอื่นๆ</small></p></a>
+    </div>
+</div>

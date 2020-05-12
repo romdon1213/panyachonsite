@@ -15,6 +15,13 @@
     <meta property="og:description" content="{%block descripe%}{%endblock%}"/>
     <meta property="og:image" content="{%block pathpic%}{%endblock%}"/>
 
+        <!--class Meta for twitter-->
+    <meta property="twitter:card " content="{%block t-pathpage%}{%endblock%}"/>
+    <meta property="twitter:type" content="{%block t-type%}{%endblock%}"/>
+    <meta property="twitter:title" content="{%block t-titleface%}{%endblock%}"/>
+    <meta property="twitter:description" content="{%block t-descripe%}{%endblock%}"/>
+    <meta property="twitter:image " content="{%block t-pathpic%}{%endblock%}"/>
+
     <!--            <style>-->
     <!--            img {-->
     <!--    max-width: 100%;-->
@@ -31,12 +38,66 @@
         margin-top:-5px;
         margin-right:5px;
         }
+        .foot-img{
+        width:85px;
+        height:85px;
+        float:left;
+        background-size:auto 100%;
+        margin-top:-5px;
+        margin-right:5px;
+        }
+        .quest-img{
+        width:30px;
+        height:30px;
+        background-size:auto 100%;
+        margin-top:-5px;
+        margin-right:5px;
+        }
+    .footer{
+  background: #2E8B57;
+  color:white;
+
+  .links{
+    ul {list-style-type: none;}
+    li a{
+      color: white;
+      transition: color .2s;
+      &:hover{
+        text-decoration:none;
+        color:#4180CB;
+        }
+    }
+  }
+  .about-company{
+    i{font-size: 25px;}
+    a{
+      color:white;
+      transition: color .2s;
+      &:hover{color:#4180CB}
+    }
+  }
+  .location{
+    i{font-size: 18px;}
+  }
+  .copyright p{border-top:1px solid rgba(255,255,255,.1);}
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
     </style>
 
     <title>{%block title%}{%endblock%}</title>
+    <link rel="shortcut icon" href="/media/logonowrite.png/" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@200;300;400&display=swap" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
@@ -54,6 +115,8 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link href="https://getbootstrap.com/docs/4.4/examples/carousel/carousel.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@200&display=swap" rel="stylesheet">
 </head>
@@ -83,7 +146,7 @@
                              class="navbar-img bd-placeholder-img rounded-circle"></a>
                     {% endif %}
                     <span style="color:white">
-                    <a class="navbar-brand" href="{%url 'blog_user'%}">{{request.user.first_name}}</a></span>
+                        <a class="navbar-brand" href="{%url 'blog_user'%}"><h6>{{request.user.first_name}}</h6></a></span>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -91,14 +154,18 @@
                         <i class="fa fa-list" aria-hidden="true"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{%url 'signout'%}">ลงชื่อออก <i class="fas fa-sign-out-alt"
-                                                                                       aria-hidden="true"></i></a>
-                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href="{%url 'edit_profile'%}">แก้ไขโปรไฟล์ <i class="fa fa-wrench"
                                                                                                aria-hidden="true"></i></a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{%url 'postcreate'%}">สร้างโพสต์ <i class="fas fa-pen"
                                                                                            aria-hidden="true"></i></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{%url 'masalahcreate'%}">ส่งมัสอะละห์ <i class="fa fa-envelope"
+                                                                                                aria-hidden="true"></i></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{%url 'signout'%}">ลงชื่อออก <i class="fas fa-sign-out-alt"
+                                                                                       aria-hidden="true"></i></a>
                     </div>
                 </li>
                 {%else%}
@@ -107,7 +174,13 @@
                     <a class="nav-link" href="{%url 'signup' %}">สมัครสมาชิก | </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'signin' %}?next={{ request.path|urlencode }}">ลงชื่อเข้าใช้ <i
+                    <a class="nav-link" href="
+                    {% if 'search' in request.path %}
+                    {% url 'signin' %}
+                    {%else%}
+                    {% url 'signin' %}?next={{ request.path|urlencode }}
+                     {%endif%}">
+                        ลงชื่อเข้าใช้ <i
                             class="fas fa-sign-in-alt"
                             aria-hidden="true"></i></a>
                 </li>
@@ -117,6 +190,15 @@
                     {%else%}
                     <a class="nav-link" href="{% url 'signin' %}?next={{ request.path|urlencode }}">สร้างโพสต์ <i
                             class="fas fa-pen"></i></a>
+                    {%endif%}
+                </li>
+                <li class="nav-item">
+                    {% if request.user.is_authenticated %}
+                    <a class="nav-link" href="{%url 'masalahcreate'%}">ส่งมัสอะละห์ <i class="fa fa-envelope"
+                                                                                       aria-hidden="true"></i></a>
+                    {%else%}
+                    <a class="nav-link" href="{% url 'signin' %}?next={{ request.path|urlencode }}">ส่งมัสอะละห์
+                        <i class="fa fa-envelope" aria-hidden="true"></i></a>
                     {%endif%}
                 </li>
                 {%endif%}
@@ -152,10 +234,11 @@
                     <i class="fa fa-newspaper fa-2x" aria-hidden="true"></i>
                 </button>
             </a>
-
-            <button type="button" class="btn btn-success" style="background-color:#2E8B57;width:70px">
-                <i class='fas fa-mosque fa-2x' aria-hidden="true"></i>
-            </button>
+            <a href="{% url 'praytime'%}">
+                <button type="button" class="btn btn-success" style="background-color:#2E8B57;width:70px">
+                    <i class='fas fa-mosque fa-2x' aria-hidden="true"></i>
+                </button>
+            </a>
             <a href="{% url 'blog'%}">
                 <button type="button" class="btn btn-success" style="background-color:#2E8B57;width:70px">
                     <i class='far fa-edit fa-2x' aria-hidden="true"></i>
@@ -171,29 +254,104 @@
                 {%block content%}
                 {%endblock%}
             </div>
-            {%include 'block_ads.html'%}
+            <div class="col-lg-4">
+                {%include 'blockcreate.html'%}
+
+                {%block praytime%}
+                {%endblock%}
+
+                {%block ads%}
+                {%endblock%}
+
+            </div>
         </div>
     </div>
 
 </main>
 
 <!-- FOOTER -->
-<footer class="container-fluid">
-    <div class="footer-main bg-dark py-5 small">
-        <div class="container">
-            <a href="/about">Start Bootstrap</a>
-            is a project created and maintained by
-            <a href="http://davidmiller.io">David Miller</a>.
-            <br>
-            Themes, templates, and snippets licensed
-            <a href="https://opensource.org/licenses/MIT">MIT</a>, Start Bootstrap website
-            <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.
-            <br>
-            Based on
-            <a href="https://getbootstrap.com">Bootstrap</a>.
+<div class="mt-5 pt-5 pb-5 footer mb-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-xs-12 about-company">
+                <h2>ปัญญาชนอิสลาม</h2>
+                <p class="pr-5 text-white-50"><br>
+                    แหล่งความรู้อิสลาม สรรสร้างปัญญา นำพาสังคมสู่แนวทางอันเที่ยงตรง เพื่อหนทางแห่งความสุขทั้งดุนยานี้
+                    และอาคิเราะห์โลกหน้า
+                </p>
+                <p>
+                    <a style="color:white" href="https://www.facebook.com/islamthai.org">
+                        <i class="fa fa-facebook-square fa-3x" aria-hidden="true"></i>
+                    </a>&nbsp;&nbsp;
+                    <a style="color:white" href="https://www.instagram.com/mufakkirullah">
+                        <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
+                    </a>&nbsp;&nbsp;
+                    <a style="color:white" href="https://www.youtube.com/channel/UCc-9e4_S-9D9ZQVYfrKun8w">
+                        <i class="fa fa-youtube-play fa-3x" aria-hidden="true"></i>
+                    </a>&nbsp;&nbsp;
+                    <a style="color:white" href="https://www.twitter.com/alqalbi2019">
+                        <i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
+                    </a>
+                </p>
+            </div>
+            <div class="col-lg-3 col-xs-12 links">
+                <ul class="m-0 p-0">
+                    <li>
+                        <a style="color:white" href="
+                            {% if request.user.is_authenticated %}
+                            {%url 'postcreate'%}
+                            {%else%}
+                            {% url 'signin' %}?next={{ request.path|urlencode }}
+                            {%endif%}">
+                            เขียนโพสต์
+                        </a>
+                    </li>
+                    <li>
+                        <a style="color:white" href="
+                            {% if request.user.is_authenticated %}
+                            {%url 'masalahcreate'%}
+                            {%else%}
+                            {% url 'signin' %}?next={{ request.path|urlencode }}
+                            {%endif%}">
+                            ส่งมัสอะละห์
+                        </a>
+                    </li>
+                    <li><a style="color:white" href="{%url 'index'%}">หน้าหลัก</a></li>
+                    <li><a style="color:white" href="{%url 'article'%}">บทความอิสลาม</a></li>
+                    <li><a style="color:white" href="{%url 'blog'%}">โพสต์</a></li>
+                    <li><a style="color:white" href="{%url 'masalah'%}">มัสอะละห์</a></li>
+                    <li><a style="color:white" href="{%url 'praytime'%}">เวลาละหมาด</a></li>
+                </ul>
+                {% if request.user.is_authenticated %}
+                <br>
+                <button class="btn btn-primary" disabled>ขอพระองค์อัลลอฮ์ทรงตอบแทนความดีแด่ท่านทั้งหลาย</button>
+                {%else%}
+                <br>
+                <a href="{%url 'signup'%}">
+                    <button class="btn btn-primary">สมัครสมาชิก</button>
+                </a>
+                {%endif%}
+                <br>
+            </div>
+            <div class="col-lg-4 col-xs-12 location">
+                <h6 class="mt-lg-0 mt-sm-4">ติดต่อ/สอบถามข้อมูล/แจ้งปัญหาการใช้งาน</h6>
+                <p>E-mail : panyachonislam@gmail.com<br>
+                    facebook fanpage : ปัญญาชนของอัลลอฮฺ
+                </p><br>
+                <img src="/media/logonowrite.png/" class="foot-img bd-placeholder-img rounded-circle"
+                     style="background:white">
+
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col copyright">
+                <p class=""><small class="text-white-50">© 2020. อนุญาตเผยแพร่ข้อมูลโดยเว็บไซต์
+                    panyachonislam.com.</small></p>
+            </div>
         </div>
     </div>
-</footer>
+</div>
+<h6 style="text-align:center">WWW.PANYACHONISLAM.COM</h6>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(event){
@@ -321,6 +479,8 @@
         });
 
     });
+
+
 
 
 

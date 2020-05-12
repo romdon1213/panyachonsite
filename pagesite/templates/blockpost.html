@@ -1,0 +1,27 @@
+<div class="card  shadow mb-4" style="border-top: 3px solid green">
+    <div class="card-header">โพสต์</div>
+    <div class="card-body text-primary">
+        <table class="table">
+            <tbody>
+            {%for p in postblock%}
+            <tr>
+
+                <td>
+                    <a href="{{p.get_url}}">
+                        <img class="navbar-img rounded-circle"
+                             src="
+                         {% if p.author.profile.photo %}
+                         {{p.author.profile.photo.url}}
+                         {%else%}
+                         /media/Profile-PNG-Icon-715x715.png/
+                         {%endif%}">
+                    </a>
+                    <a class="card-link" href="{{p.get_url}}" style="color:green"> - {{p.title|truncatechars:27}}</a>
+                </td>
+            </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+        <a href="{%url 'blog'%}"><p style="text-align:right"><small>ดูโพสต์อื่นๆ</small></p></a>
+    </div>
+</div>

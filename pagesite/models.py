@@ -26,21 +26,31 @@ class CategoryMasalah(models.Model):
 class Masalah(models.Model):
     objects = None
     question = models.TextField(max_length=1000, unique=True)
-    slug = models.SlugField(max_length=255, unique=True)
+    slug = models.SlugField(max_length=255,allow_unicode=True)
     answer = RichTextField(config_name='default', blank=True)
     category = models.ForeignKey(CategoryMasalah, on_delete=models.CASCADE)
+    quester=models.ForeignKey(User,related_name='assael',on_delete=models.CASCADE)
     available = models.BooleanField(default=True)
+    answered=models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     view = models.PositiveIntegerField(default=0)
     likes=models.ManyToManyField(User,related_name='likes_masalah',blank=True)
     comment = 0
 
+    def save(self, *args, **kwargs):
+        super(Masalah, self).save(*args, **kwargs)
+        if not self.slug:
+            self.slug = slugify(self.id)
+            if not self.slug:
+                self.slug =str(self.id)
+        super(Masalah, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.question
 
     class Meta:
-        ordering = ('question',)
+        ordering = ('id',)
         verbose_name = 'masalah'
         verbose_name_plural = 'เนื้อหา masalah'
     #
@@ -132,8 +142,8 @@ class CategoryPost(models.Model):
 
 class Post(models.Model):
     STATUS_CHOICES=(
-        ('dratf','สร้างดราฟต์'),
-        ('published','เผยแพร่')
+        ('dratf','สร้างฉบับร่าง'),
+        ('published','เผยแพร่สาธารณะ')
     )
     title=models.CharField(max_length=300)
     slug=models.SlugField(max_length=120,allow_unicode=True)
@@ -150,9 +160,9 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.id)
             if not self.slug:
-                self.slug = thai_slugify(self.title) + "-" + str(self.id)
+                self.slug =str(self.id)
         super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -162,8 +172,9 @@ class Post(models.Model):
         return self.likes.count()
 
     def get_url(self):
-        return reverse('blog_detail', args=[self.category.slug, self.slug])
-
+        return reverse('blog_detail', args=[self.category.slug , self.slug])
+    def get_num_comment(self):
+        return CommentPost.objects.filter(post=self).count()
 
 def thai_slugify(str):
     str = str.replace(" ", "-")

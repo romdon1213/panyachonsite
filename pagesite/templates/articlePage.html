@@ -7,6 +7,13 @@
 {%block descripe%}{{article.description|safe}}{%endblock%}
 {%block pathpic%}{{article.image.url}}{%endblock%}
 <!--end class Meta for facebook-->
+<!--class Meta for twitter-->
+{%block t-pathpage%}{{article.get_url}}{%endblock%}
+{%block t-type%}panyachonislam.com{%endblock%}
+{%block t-titleface%}{{article.name}}{%endblock%}
+{%block t-descripe%}{{article.description|safe}}{%endblock%}
+{%block t-pathpic%}{{article.image.url}}{%endblock%}
+<!--end class Meta for twitter-->
 {%block head%}
 {%include 'picheadpage.html'%}
 {%endblock%}
@@ -25,13 +32,18 @@
         </div>
 
         <div class="card-body">{{article.description|safe}}</div>
-
-        <a href="http://www.facebook.com/sharer.php?u=http://127.0.0.1:8000{{article.get_url}}">shareeeeee</a>
-
+        <div><p style="text-align:center">
+            <small>แชร์ไปยัง :</small>
+            <a href="http://www.facebook.com/sharer.php?u=http://www.panyachonislam.com{{article.get_url}}">
+                <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+            </a>&nbsp;
+            <a href="https://twitter.com/share?text={{ article.name|truncatechars:200 }}&url=http://www.panyachonislam.com{{article.get_url}}&hashtags=อิสลาม">
+                <i class="fa fa-twitter fa-2x" aria-hidden="true"></i>
+            </a></p>
+        </div>
         <div class="modal-footer">
-
             <p class="card-text"><span><small>
-                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{article.updated|date:'SHORT_DATE_FORMAT'}} |
+                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{article.updated|date:'d/m/Y'}} |
                         <i class="fa fa-clock" aria-hidden="true"> </i> {{article.updated|time:'H:i'}} |
                         <i class="fa fa-tag" aria-hidden="true"></i> {{article.category.name}} |
                         </small></span>
@@ -59,4 +71,13 @@
     </div>
 </div>
 
+{%endblock%}
+{%block praytime%}
+{%include 'blockpraytime.html'%}
+{%endblock%}
+
+{%block ads%}
+{%include 'blockarticle.html'%}
+{%include 'blockpost.html'%}
+{%include 'blockmasalah.html'%}
 {%endblock%}

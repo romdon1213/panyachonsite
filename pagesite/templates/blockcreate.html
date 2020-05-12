@@ -1,0 +1,25 @@
+<div class="card  shadow mb-4" style="border-top: 3px solid green ; ">
+    <div class="card-body" style="text-align:center">
+        <a href="
+        {% if request.user.is_authenticated %}
+        {%url 'postcreate'%}
+        {%else%}
+        {% url 'signin' %}?next={{ request.path|urlencode }}
+        {%endif%}">
+            <button type="button" class="btn btn-outline-success">
+                <i class="fas fa-pen" aria-hidden="true"></i> เขียนโพสต์/บทความของคุณ
+            </button>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="
+        {% if request.user.is_authenticated %}
+        {%url 'masalahcreate'%}
+        {%else%}
+        {% url 'signin' %}?next={{ request.path|urlencode }}
+        {%endif%}">
+            <button type="button" class="btn btn-outline-primary">
+                <i class="fa fa-envelope" aria-hidden="true"></i> ส่งมัสอะละห์ของคุณ
+            </button>
+        </a>
+    </div>
+</div>

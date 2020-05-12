@@ -1,0 +1,18 @@
+<div class="card  shadow mb-4" style="border-top: 3px solid green">
+    <div class="card-header">มัสอะละห์</div>
+    <div class="card-body text-primary">
+        <table class="table">
+            <tbody>
+            {%for m in masalahblock%}
+            <tr>
+
+                <td>
+                    <a class="card-link" href="{{m.get_url}}" style="color:green"> - {{m.question|truncatechars:35}}</a>
+                </td>
+            </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+        <a href="{%url 'masalah'%}"><p style="text-align:right"><small>ดูมัสอะละห์อื่นๆ</small></p></a>
+    </div>
+</div>

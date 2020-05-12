@@ -1,12 +1,17 @@
 {% extends 'layout.html'%}
-{%block title%}ปัญญาชนอิสลาม-{{article.name}}{%endblock%}
+{%block title%}ปัญญาชนอิสลาม-{{masalah.question}}{%endblock%}
 <!--class Meta for facebook-->
-{%block pathpage%}{{article.get_url}}{%endblock%}
+{%block pathpage%}{{masalah.get_url}}{%endblock%}
 {%block type%}panyachonislam.com{%endblock%}
-{%block titleface%}{{article.name}}{%endblock%}
-{%block descripe%}{{article.description|safe}}{%endblock%}
-{%block pathpic%}{{article.image.url}}{%endblock%}
+{%block titleface%}{{masalah.question}}{%endblock%}
+{%block descripe%}{{masalah.answer|safe}}{%endblock%}
 <!--end class Meta for facebook-->
+<!--class Meta for twitter-->
+{%block t-pathpage%}{{masalah.get_url}}{%endblock%}
+{%block t-type%}panyachonislam.com{%endblock%}
+{%block t-titleface%}{{masalah.question}}{%endblock%}
+{%block t-descripe%}{{masalah.answer|safe}}{%endblock%}
+<!--end class Meta for twitter-->
 {%block head%}
 {%include 'picheadpage.html'%}
 {%endblock%}
@@ -15,36 +20,62 @@
     <div class="card shadow mb-2" style="border-top: 3px solid green ;padding:10px">
 
         <div class="jumbotron shadow mb-3" style="background-color:#B0E0E6;padding:20px">
-            <h6><kbd style="background-color:#2E8B57">คำถามหมายเลข : {{masalah.id}} </kbd> | {{masalah.question}}
-            </h6>
-            <br>
-        </div>
 
-        <div class="jumbotron shadow" style="background-color:#F0FFFF;padding:25px">
-            <p>
-                <kbd style="background-color:#008B8B">ตอบ</kbd>{{masalah.answer|safe}}
-            </p>
-        </div>
-
-        <a href="http://www.facebook.com/sharer.php?u=http://127.0.0.1:8000{{article.get_url}}">shareeeeee</a>
-
-        <div class="modal-footer">
-
-            <p class="card-text"><span><small>
-                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{masalah.updated|date:'SHORT_DATE_FORMAT'}} |
-                        <i class="fa fa-clock" aria-hidden="true"> </i> {{masalah.updated|time:'H:i'}} |
+            <h6><kbd style="background-color:#2E8B57">คำถามหมายเลข : {{masalah.id}} </kbd> &nbsp; &nbsp;
+                <span><small>
+                        {%if masalah.available %}
+                            <a class="card-link" href="
+                            {% if masalah.quester == request.user %}
+                            {%url 'blog_user'%}
+                            {%else%}
+                            {{masalah.quester.profile.get_url}}
+                            {%endif%}">
+                            {% if masalah.quester.profile.photo %}
+                            <img src="{{masalah.quester.profile.photo.url}}" class="quest-img rounded-circle">
+                            {% else %}
+                            <img src="/media/Profile-PNG-Icon-715x715.png/" class="quest-img rounded-circle">
+                            {% endif %}
+                            {{masalah.quester.first_name|truncatechars:23}}&nbsp;&nbsp;</a>
+                        {%else%}
+                        ไม่เปิดเผยผู้ถาม &nbsp;&nbsp;
+                        {%endif%}
                         <i class="fa fa-tag" aria-hidden="true"></i> {{masalah.category.name}} |
+                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{masalah.created|date:'d/m/Y'}} |
+                        <i class="fa fa-clock" aria-hidden="true"> </i> {{masalah.created|time:'H:i'}} |
                         </small></span>
-            </p>
-
-            <p>
-                <span><i class="fa fa-eye" aria-hidden="true"></i> {{masalah.view}} |</span>
-            <div id="like-masalah-section">
-                {% include 'like_masalah_section.html' %}
-            </div>
-            <!--                            <span><i class="fa fa-star" aria-hidden="true"></i> {{article.total_likes}} |</span>-->
-            </p>
+                <br><br>{{masalah.question}}
+            </h6>
         </div>
+        <div class="jumbotron shadow" style="background-color:#F0FFFF;padding:25px">
+            <h6>
+                <kbd style="background-color:#008B8B">ตอบ</kbd>&nbsp;&nbsp;
+                <span><small>
+                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{masalah.updated|date:'d/m/Y'}} |
+                        <i class="fa fa-clock" aria-hidden="true"> </i> {{masalah.updated|time:'H:i'}} |
+                        </small></span>
+                <br><br>{{masalah.answer|safe}}
+            </h6>
+            <div class="modal-footer">
+                <p>
+                    <span><i class="fa fa-eye" aria-hidden="true"></i> {{masalah.view}} |</span>
+                <div id="like-masalah-section">
+                    {% include 'like_masalah_section.html' %}
+                </div>
+                <!--                            <span><i class="fa fa-star" aria-hidden="true"></i> {{article.total_likes}} |</span>-->
+                </p>
+            </div>
+        </div>
+
+        <div><p style="text-align:center">
+            <small>แชร์ไปยัง :</small>
+            <a href="http://www.facebook.com/sharer.php?u=http://www.panyachonislam.com{{masalah.get_url}}">
+                <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+            </a>&nbsp;
+            <a href="https://twitter.com/share?text={{ masalah.question|truncatechars:200 }}&url=http://www.panyachonislam.com{{masalah.get_url}}&hashtags=อิสลาม">
+                <i class="fa fa-twitter fa-2x" aria-hidden="true"></i>
+            </a></p>
+        </div>
+
         <hr>
         <div class="main-comment-section">
             {%include 'commentmasalah.html'%}
@@ -55,8 +86,16 @@
                 <a style="color:green" class="card-link" href="{%url 'masalah'%}"><h6>มัสอะละห์อื่นๆ</h6></a>
             </div>
         </div>
-
     </div>
 </div>
 
+{%endblock%}
+{%block praytime%}
+{%include 'blockpraytime.html'%}
+{%endblock%}
+
+{%block ads%}
+{%include 'blockmasalah.html'%}
+{%include 'blockarticle.html'%}
+{%include 'blockpost.html'%}
 {%endblock%}

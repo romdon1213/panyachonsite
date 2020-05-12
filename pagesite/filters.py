@@ -1,5 +1,5 @@
 import django_filters
-from pagesite.models import Article, Category,Masalah,CategoryMasalah,Post,CategoryPost
+from pagesite.models import Article, Category,CategoryMasalah,Post,CategoryPost,Masalah
 
 
 class ArticleFilters(django_filters.FilterSet):

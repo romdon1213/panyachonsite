@@ -25,14 +25,16 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),  # หน้าหลัก
-    path('test/', views.test),  # หน้าทดลอง
-    path('praytime/', views.test),  # หน้าทดลองเวลาละหมาด
+    path('praytime/', views.praytime, name='praytime'),  # หน้าทดลองเวลาละหมาด
     path('article/', views.article, name='article'),  # หน้ารวมบทความ
     path('category/<slug:category_article_slug>/', views.index, name="article_by_category"),  # กล่องบทความในหน้าหลัก
     path('article/<slug:category_article_slug>/<slug:article_slug>', views.articlePage, name="article_detail"),
     path('like-article/', views.like_article, name='like_article'),
 
     path('masalah/', views.masalah, name='masalah'),  # หน้ารวมบทความ
+    path('masalahcreate/', views.masalah_create, name='masalahcreate'),
+    path('masalah-answered/', views.masalah_answered, name='masalah-answered'),
+    path('masalah-noanswered/', views.masalah_noanswered, name='masalah-noanswered'),
     path('categorymasalah/<slug:category_masalah_slug>/', views.index, name="masalah_by_category"),
     # กล่อง masalah ในหน้าหลัก
     path('masalah/<slug:category_masalah_slug>/<slug:masalah_slug>', views.masalahPage, name="masalah_detail"),
@@ -53,11 +55,11 @@ urlpatterns = [
 
     path('blog/', views.blog, name='blog'),  # หน้ารวมบล็อก
     path('user-blogpage/', views.blog_user, name='blog_user'),
+    path('user-draft-blogpage/', views.blog_user_draft, name='blog_user_draft'),
     path('each_user-blogpage/<user>', views.blog_each_user, name='blog_each_user'),
 
     path('categorypost/<slug:category_post_slug>', views.index, name="post_by_category"),  # กล่องบล็อคในหน้าหลัก
-    path('blog/(?P<category_post_slug>[-a-zA-Z0-9_]+)/(?P<post_slug>[-a-zA-Z0-9_]+)$', views.blogpage,
-         name='blog_detail'),
+    path('blog/<category_post_slug>/<post_slug>', views.blogpage, name='blog_detail'),
     # บล็อคแต่ละอันในหน้าแยก
     path('account/create', views.signupview, name='signup'),
     path('account/login', views.signinview, name='signin'),

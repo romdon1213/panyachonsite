@@ -1,4 +1,5 @@
 {% extends 'layout.html'%}
+{%block title%}ปัญญาชนอิสลาม-รวมโพสต์และบทความอิสลาม{%endblock%}
 {% load crispy_forms_tags %}
 {%block head%}
 {%include 'picheadpage.html'%}
@@ -12,7 +13,7 @@
     {% endif %}
 </div>
 <div class="container" style="background-color:white;border-top: 3px solid green ; padding:20px">
-    <div class="card-body" >
+    <div class="card-body" id="postpage">
         <form method="get">
             {{filter.form|crispy}}
             <div style="text-align:center;">
@@ -30,12 +31,24 @@
             {%else%}
             {% url 'signin' %}?next={{ request.path|urlencode }}
             {%endif%}
-             "> ที่นี่ </a></p></div>
+             "> ที่นี่ </a></p>
+        </div>
         {% else %}
         {%for p in page_obj%}
         <div class="card text-center col-lg-4" style="border-bottom: 3px solid green ; padding:20px">
-            <a href="{{p.author.profile.get_url}}"><p>{{p.author.first_name}}</p></a>
-            <img style="margin-left: auto;margin-right: auto " class="bd-placeholder-img rounded-circle" width="140"
+            <a style="color:#20B2AA" class="card-link"
+               href="{% if p.author == request.user %}
+                    {%url 'blog_user'%}
+                    {%else%}
+                    {{p.author.profile.get_url}}
+                    {%endif%}"><p>
+                {{p.author.first_name}}<br><small>@ {{p.author.username}}</small></p>
+            </a>
+            <a href="{% if p.author == request.user %}
+                    {%url 'blog_user'%}
+                    {%else%}
+                    {{p.author.profile.get_url}}
+                    {%endif%}"><img style="margin-left: auto;margin-right: auto " class="bd-placeholder-img rounded-circle" width="140"
                  height="140"
                  src="
                          {% if p.author.profile.photo %}
@@ -47,35 +60,103 @@
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="#777"/>
 
-            </img>
+                </img></a>
             <div class="card-body">
-                <a href="{{p.get_url}}"><h6>{{p.title|truncatechars:60}}</h6></a>
+                <a style="color:#2E8B57" class="card-link" href="{{p.get_url}}"><h6>{{p.title|truncatechars:60}}</h6>
+                </a>
             </div>
             <div class="modal-footer">
 
-                <p class="card-text"><small class="text-muted">อัพเดทล่าสุด : {{p.updated}}</small></p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                <p><a class="btn btn-success" href="#" role="button">readlist <span
-                        class="badge badge-light">+</span></a></p>
-                <span><kbd>{{p.total_likes}} like</kbd></span>
-                <span><kbd>{{p.countcomment}} ความคิดเห็น</kbd></span>
+                <p><a class="btn btn-outline-success" href="{{p.get_url}}" role="button">อ่าน &raquo;</a></p>
+                <p class="card-text"><span><small>
+                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{p.updated|date:'d/m/Y'}} |
+                        <i class="fa fa-clock" aria-hidden="true"> </i> {{p.updated|time:'H:i'}} |
+                        </small></span>
+                </p>
+                <p><span><small><i class="fa fa-tag" aria-hidden="true"></i> {{p.category.name}}</small></span></p>
+                <p>
+                    | <span><i class="fa fa-comments" aria-hidden="true"></i> {{p.get_num_comment}} |</span>
+                    <span><i class="fa fa-eye" aria-hidden="true"></i> {{p.view}} |</span>
+                    <span><i class="fa fa-star" aria-hidden="true"></i> {{p.total_likes}} |</span>
+                </p>
                 {% if p.author == request.user %}
-                <div>
-                    <a href="{% url 'post_edit' id=p.id %}">
-                        <button type="button" class="btn btn-outline-success">แก้ไขโพสต์</button>
-                    </a>
-                </div>
-                <div>
-                    <a onclick="return confirm('คุณต้องการลบโพสต์/บทความของคุณหรือไม่ ?')"
-                       href="{% url 'post_delete' id=p.id %}">
-                        <button type="button" class="btn btn-outline-danger">ลบโพสต์</button>
-                    </a>
-                </div>
+                <a href="{% url 'post_edit' id=p.id %}">
+                    <p>แก้ไขโพสต์</p>
+                </a>
+                <a onclick="return confirm('คุณต้องการลบโพสต์/บทความของคุณหรือไม่ ?')"
+                   href="{% url 'post_delete' id=p.id %}"><p>ลบโพสต์</p>
+                </a>
                 {% endif %}
             </div>
         </div><!-- /.col-lg-4 -->
         {% endfor %}
         {%endif%}
     </div><!-- /.row -->
+        {% load my_tags %}
+    <hr>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.previous_page_number != 0 %}
+            <li class="page-item">
+                <a href="?{% param_replace page=1 %}#postpage"><span class="page-link">หน้าแรก</span></a>
+            </li>
+            {% endif %}
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link"
+                                     href="?{% param_replace page=page_obj.previous_page_number %}#postpage"><i
+                    class="fa fa-chevron-left"
+                    aria-hidden="true"></i></a></li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#postpage"><span><i class="fa fa-chevron-left"
+                                                                                         aria-hidden="true"></i></span></a>
+            </li>
+            {% endif %}
+
+            {% if page_obj.number|add:'-4' > 1 %}
+            <li class="page-item"><a class="page-link"
+                                     href="?{% param_replace page=page_obj.number|add:'-5' %}#postpage">&hellip;</a></li>
+            {% endif %}
+
+            {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+            <li class="page-item active"><a class="page-link" href="#postpage"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
+            </li>
+            {% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
+            <li class="page-item"><a class="page-link" href="?{% param_replace page=i %}#postpage">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.paginator.num_pages > page_obj.number|add:'4' %}
+            <li class="page-item"><a class="page-link" href="?{% param_replace page=page_obj.number|add:'5' %}#postpage">&hellip;</a>
+            </li>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+            {% if page_obj.next_page_number != paginator.num_pages %}
+            <li class="page-item"><a class="page-link"
+                                     href="?{% param_replace page=page_obj.next_page_number %}#postpage"><i
+                    class="fa fa-chevron-right"
+                    aria-hidden="true"></i></a></li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#postpage"><span><i class="fa fa-chevron-right"
+                                                                                         aria-hidden="true"></i></span></a>
+            </li>
+            {% endif %}
+            <li class="page-item">
+                <a href="?{% param_replace page=page_obj.paginator.num_pages %}#postpage"><span
+                        class="page-link">สุดท้าย</span></a>
+            </li>
+
+            {% endif %}
+        </ul>
+    </nav><!--page-->
 </div>
+{%endblock%}
+{%block praytime%}
+{%include 'blockpraytime.html'%}
+{%endblock%}
+
+{%block ads%}
+{%include 'blockarticle.html'%}
+{%include 'blockmasalah.html'%}
 {%endblock%}

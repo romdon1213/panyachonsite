@@ -22,6 +22,7 @@ docutils==0.16
 Flask==1.1.2
 get==2019.4.13
 gunicorn==20.0.4
+httplib2==0.17.3
 idna==2.9
 itsdangerous==1.1.0
 Jinja2==2.11.2
@@ -29,6 +30,10 @@ lockfile==0.12.2
 Markdown==3.2.1
 MarkupSafe==1.1.1
 mock==4.0.2
+<<<<<<< Updated upstream
+=======
+mysqlclient==1.4.6
+>>>>>>> Stashed changes
 note==0.5.2
 oauthlib==3.1.0
 Pillow==7.1.1

@@ -28,20 +28,29 @@
     <link href="https://getbootstrap.com/docs/4.4/examples/carousel/carousel.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@200&display=swap" rel="stylesheet">
 
-    <title>ปัญญาชนอิสลาม-ยืนยันบัญชีของคุณ</title>
+    <title>เเขียนคำถามของคุณ-ปัญญาชนอิสลาม</title>
     <link rel="shortcut icon" href="/media/logonowrite.png/" type="image/x-icon">
 </head>
 <body style="background-color:#E0FFFF ; font-family: 'Sarabun', sans-serif;">
+{% load crispy_forms_tags %}
 
 <div class="container">
     <div class="d-flex justify-content-center">
         <div class="card">
             <div class="card-body">
-                <p>
-                    คุณได้ทำการยืนยันอีเมลเรียบร้อยร้อยแล้ว กรุณาเข้าสู่ระบบ <a href="http://127.0.0.1:8000/account/login">login </a>.
+                <h5 align="center">เขียนคำถามของคุณ
+                <br><br><small>กรุณาส่งคำถามด้วยความสุภาพ และเป็นคำถามที่เกิดประโยชน์ต่อตัวท่านเองและสังคม</small>
+                </h5>
+                <hr>
+                <form method="post" >
+                    {% csrf_token %}
+                    {{form.media}}
+                    {{form | crispy}}
 
-                </p>
-
+                    <div style="text-align:center;">
+                        <input type="submit" class="btn btn-success" value="ส่งคำถาม" align="center">
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@ from ckeditor.fields import CKEditorWidget
 from django.contrib.auth.forms import UserCreationForm
 from social_core.backends import username, email
 
-from pagesite.models import Post, Profile, CommentPost, CommentArticle, CommentMasalah
+from pagesite.models import Post, Profile, CommentPost, CommentArticle,CommentMasalah,Masalah
 
 
 class SignupForm(UserCreationForm):
@@ -57,6 +57,18 @@ class PostCreateForm(forms.ModelForm):
             'body',
             'category',
             'status'
+        )
+
+class MasalahCreateform(forms.ModelForm):
+    question=forms.CharField(label='เขียนคำคาม',widget=forms.Textarea())
+    available=forms.BooleanField(label='อณุญาตให้เปิดเผยผู้ถาม หากไม่!!! กรุณานำเครื่องหมายถูกออก',required=False,initial=True)
+
+    class Meta:
+        model=Masalah
+        fields=(
+            'question',
+            'category',
+            'available',
         )
 
 class PostEditForm(forms.ModelForm):

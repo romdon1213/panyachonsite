@@ -46,7 +46,7 @@
             <hr>
             <footer><small>
                 <i class="fa fa-comments" aria-hidden="true"></i> ความคิดเห็นที่ {{forloop.counter}} |
-                <i class="fa fa-calendar" aria-hidden="true"> </i> {{comment.timestamp|date:'SHORT_DATE_FORMAT'}} |
+                <i class="fa fa-calendar" aria-hidden="true"> </i> {{comment.timestamp|date:'d/m/Y'}} |
                 <i class="fa fa-clock" aria-hidden="true"> </i> {{comment.timestamp|time:'H:i'}} |
             </small>
                 <cite title="Source Title">
@@ -107,7 +107,7 @@
                 <hr>
                 <footer><small>
                     <i class="fa fa-comments" aria-hidden="true"></i> ตอบกลับที่ {{forloop.counter}} |
-                    <i class="fa fa-calendar" aria-hidden="true"> </i> {{reply.timestamp|date:'SHORT_DATE_FORMAT'}}
+                    <i class="fa fa-calendar" aria-hidden="true"> </i> {{reply.timestamp|date:'d/m/Y'}}
                     |
                     <i class="fa fa-clock" aria-hidden="true"> </i> {{reply.timestamp|time:'H:i'}} |
                 </small>

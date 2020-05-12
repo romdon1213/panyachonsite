@@ -1,4 +1,5 @@
 {% extends 'layout.html'%}
+{%block title%}ปัญญาชนอิสลาม-รวมบทความอิสลาม{%endblock%}
 {% load crispy_forms_tags %}
 {%load bootstrap%}
 {%block head%}
@@ -30,7 +31,7 @@
                 <div class="modal-footer">
 
                     <p class="card-text"><span><small>
-                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{article.updated|date:'SHORT_DATE_FORMAT'}} |
+                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{article.updated|date:'d/m/Y'}} |
                         <i class="fa fa-clock" aria-hidden="true"> </i> {{article.updated|time:'H:i'}} |
                         <i class="fa fa-tag" aria-hidden="true"></i> {{article.category.name}} |
                         </small></span>
@@ -111,4 +112,11 @@
     </nav><!--page-->
 
 </div>
+{%endblock%}
+{%block praytime%}
+{%include 'blockpraytime.html'%}
+{%endblock%}
+{%block ads%}
+{%include 'blockpost.html'%}
+{%include 'blockmasalah.html'%}
 {%endblock%}
